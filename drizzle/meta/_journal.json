@@ -1,0 +1,20 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1707255058211,
+      "tag": "0000_parched_gambit",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1707255410774,
+      "tag": "0001_faulty_joystick",
+      "breakpoints": true
+    }
+  ]
+}
