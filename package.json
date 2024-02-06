@@ -50,6 +50,7 @@
 		"arctic": "^1.1.4",
 		"bits-ui": "^0.17.0",
 		"clsx": "^2.1.0",
+		"drizzle-orm": "^0.29.3",
 		"lucide-svelte": "^0.323.0",
 		"svelte-legos": "^0.2.2",
 		"tailwind-merge": "^2.2.1",
