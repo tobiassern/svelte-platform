@@ -2,7 +2,7 @@ import type { RequestHandler } from "./$types";
 import { json } from "@sveltejs/kit";
 import { github, lucia } from "$lib/server/auth";
 import { db } from "$lib/server/db";
-import { oauthAccountTable, userTable } from "$lib/server/db/schema";
+import { oauthAccountsTable, usersTable } from "$lib/server/db/schema";
 import { eq, and } from "drizzle-orm";
 import { generateId } from "lucia";
 import { OAuth2RequestError } from "arctic";
@@ -34,7 +34,7 @@ export const GET: RequestHandler = async (event) => {
         });
         const githubUser: GitHubUser = await githubUserResponse.json();
 
-        const existingUser = await db.select().from(oauthAccountTable).where(and(eq(oauthAccountTable.providerId, 'github'), eq(oauthAccountTable.providerUserId, githubUser.id)));
+        const existingUser = await db.select().from(oauthAccountsTable).where(and(eq(oauthAccountsTable.providerId, 'github'), eq(oauthAccountsTable.providerUserId, githubUser.id)));
         if (existingUser[0]) {
             const session = await lucia.createSession(existingUser[0].userId, {});
             const sessionCookie = lucia.createSessionCookie(session.id);
@@ -44,10 +44,10 @@ export const GET: RequestHandler = async (event) => {
             });
         } else {
             const userId = generateId(15);
-            await db.insert(userTable).values({
+            await db.insert(usersTable).values({
                 id: userId,
             });
-            await db.insert(oauthAccountTable).values({ providerId: "github", providerUserId: githubUser.id, userId: userId })
+            await db.insert(oauthAccountsTable).values({ providerId: "github", providerUserId: githubUser.id, userId: userId })
             const session = await lucia.createSession(userId, {});
             const sessionCookie = lucia.createSessionCookie(session.id);
             event.cookies.set(sessionCookie.name, sessionCookie.value, {
