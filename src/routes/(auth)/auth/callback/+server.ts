@@ -39,7 +39,7 @@ export const GET: RequestHandler = async (event) => {
             const session = await lucia.createSession(existingUser[0].userId, {});
             const sessionCookie = lucia.createSessionCookie(session.id);
             event.cookies.set(sessionCookie.name, sessionCookie.value, {
-                path: ".",
+                path: "/",
                 ...sessionCookie.attributes
             });
         } else {
@@ -51,7 +51,7 @@ export const GET: RequestHandler = async (event) => {
             const session = await lucia.createSession(userId, {});
             const sessionCookie = lucia.createSessionCookie(session.id);
             event.cookies.set(sessionCookie.name, sessionCookie.value, {
-                path: ".",
+                path: "/",
                 ...sessionCookie.attributes
             });
         }

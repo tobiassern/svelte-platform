@@ -17,9 +17,7 @@
 	import DataTableCheckbox from './(components)/data-table-checkbox.svelte';
 	import { ArrowUpDown, ChevronDown } from 'lucide-svelte';
 	import Modal from '$lib/components/modal/modal.svelte';
-	import { page } from '$app/stores';
-
-	$: console.log($page.url)
+	import { PUBLIC_HOST } from '$env/static/public';
 
 	export let data;
 
@@ -30,7 +28,7 @@
 		sort: addSortBy({ disableMultiSort: true }),
 		page: addPagination(),
 		filter: addTableFilter({
-			fn: ({ filterValue, value }) => value.includes(filterValue)
+			fn: ({ filterValue, value }) => value.includes(filterValue.toLowerCase())
 		}),
 		select: addSelectedRows(),
 		hide: addHiddenColumns()
@@ -75,9 +73,9 @@
 			}
 		}),
 		table.column({
-			header: 'Slug',
+			header: 'Domain',
 			accessor: 'slug',
-			cell: ({ value }) => `${value}.`,
+			cell: ({ value }) => `${value}.${PUBLIC_HOST}`,
 			plugins: { sort: { disable: true }, filter: { exclude: true } }
 		}),
 		table.column({
