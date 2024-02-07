@@ -16,48 +16,17 @@
 	import { Input } from '$lib/components/ui/input';
 	import DataTableCheckbox from './(components)/data-table-checkbox.svelte';
 	import { ArrowUpDown, ChevronDown } from 'lucide-svelte';
+	import Modal from '$lib/components/modal/modal.svelte';
+	import { page } from '$app/stores';
 
-	type Payment = {
-		id: string;
-		amount: number;
-		status: 'Pending' | 'Processing' | 'Success' | 'Failed';
-		email: string;
-	};
+	$: console.log($page.url)
 
-	const data: Payment[] = [
-		{
-			id: 'm5gr84i9',
-			amount: 316,
-			status: 'Success',
-			email: 'ken99@yahoo.com'
-		},
-		{
-			id: '3u1reuv4',
-			amount: 242,
-			status: 'Success',
-			email: 'Abe45@gmail.com'
-		},
-		{
-			id: 'derv1ws0',
-			amount: 837,
-			status: 'Processing',
-			email: 'Monserrat44@gmail.com'
-		},
-		{
-			id: '5kma53ae',
-			amount: 874,
-			status: 'Success',
-			email: 'Silas22@gmail.com'
-		},
-		{
-			id: 'bhqecj4p',
-			amount: 721,
-			status: 'Failed',
-			email: 'carmella@hotmail.com'
-		}
-	];
+	export let data;
 
-	const table = createTable(readable(data), {
+	let { sites } = data;
+	$: ({ sites } = data);
+
+	const table = createTable(readable(sites), {
 		sort: addSortBy({ disableMultiSort: true }),
 		page: addPagination(),
 		filter: addTableFilter({
@@ -94,14 +63,9 @@
 			}
 		}),
 		table.column({
-			header: 'Status',
-			accessor: 'status',
-			plugins: { sort: { disable: true }, filter: { exclude: true } }
-		}),
-		table.column({
-			header: 'Email',
-			accessor: 'email',
-			cell: ({ value }) => value.toLowerCase(),
+			header: 'Name',
+			accessor: 'name',
+			cell: ({ value }) => value,
 			plugins: {
 				filter: {
 					getFilterValue(value) {
@@ -111,29 +75,16 @@
 			}
 		}),
 		table.column({
-			header: 'Amount',
-			accessor: 'amount',
-			cell: ({ value }) => {
-				const formatted = new Intl.NumberFormat('en-US', {
-					style: 'currency',
-					currency: 'USD'
-				}).format(value);
-				return formatted;
-			},
-			plugins: {
-				sort: {
-					disable: true
-				},
-				filter: {
-					exclude: true
-				}
-			}
+			header: 'Slug',
+			accessor: 'slug',
+			cell: ({ value }) => `${value}.`,
+			plugins: { sort: { disable: true }, filter: { exclude: true } }
 		}),
 		table.column({
 			header: '',
 			accessor: ({ id }) => id,
 			cell: (item) => {
-				return createRender(Actions, { id: item.value });
+				return createRender(Actions, { id: item.value.toString() });
 			},
 			plugins: {
 				sort: {
@@ -164,25 +115,51 @@
 	const hideableCols = ['status', 'email', 'amount'];
 </script>
 
+<ul>
+	{#each sites as site}
+		<li>{site.name} {site.slug}</li>
+	{:else}
+		No sites found
+	{/each}
+</ul>
+<form action="?/create-site" method="POST">
+	<input name="name" type="text" />
+	<input name="slug" type="text" />
+	<button type="submit">Create site</button>
+</form>
 <div class="w-full">
-	<div class="flex items-center py-4">
-		<Input class="max-w-sm" placeholder="Filter emails..." type="text" bind:value={$filterValue} />
-		<DropdownMenu.Root>
-			<DropdownMenu.Trigger asChild let:builder>
-				<Button variant="outline" class="ml-auto" builders={[builder]}>
-					Columns <ChevronDown class="ml-2 h-4 w-4" />
-				</Button>
-			</DropdownMenu.Trigger>
-			<DropdownMenu.Content>
-				{#each flatColumns as col}
-					{#if hideableCols.includes(col.id)}
-						<DropdownMenu.CheckboxItem bind:checked={hideForId[col.id]}>
-							{col.header}
-						</DropdownMenu.CheckboxItem>
-					{/if}
-				{/each}
-			</DropdownMenu.Content>
-		</DropdownMenu.Root>
+	<div
+		class="flex lg:items-center justify-stretch lg:justify-between py-4 gap-3 flex-col lg:flex-row"
+	>
+		<Input
+			class="w-full lg:max-w-sm"
+			placeholder="Filter emails..."
+			type="text"
+			bind:value={$filterValue}
+		/>
+		<div class="flex gap-3 justify-between lg:justify-end items-center w-full">
+			<div>
+				<DropdownMenu.Root>
+					<DropdownMenu.Trigger asChild let:builder>
+						<Button variant="outline" class="ml-auto" builders={[builder]}>
+							Columns <ChevronDown class="ml-2 h-4 w-4" />
+						</Button>
+					</DropdownMenu.Trigger>
+					<DropdownMenu.Content>
+						{#each flatColumns as col}
+							{#if hideableCols.includes(col.id)}
+								<DropdownMenu.CheckboxItem bind:checked={hideForId[col.id]}>
+									{col.header}
+								</DropdownMenu.CheckboxItem>
+							{/if}
+						{/each}
+					</DropdownMenu.Content>
+				</DropdownMenu.Root>
+			</div>
+			<div>
+				<Modal></Modal>
+			</div>
+		</div>
 	</div>
 	<div class="rounded-md border">
 		<Table.Root {...$tableAttrs}>

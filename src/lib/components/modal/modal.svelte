@@ -13,11 +13,11 @@
 {#if $isDesktop}
 	<Dialog.Root bind:open>
 		<Dialog.Trigger asChild let:builder>
-			<Button variant="outline" builders={[builder]}>Edit Profile</Button>
+			<Button builders={[builder]}>Create Site</Button>
 		</Dialog.Trigger>
 		<Dialog.Content class="sm:max-w-[425px]">
 			<Dialog.Header>
-				<Dialog.Title>Edit profile</Dialog.Title>
+				<Dialog.Title>Create Site</Dialog.Title>
 				<Dialog.Description>
 					Make changes to your profile here. Click save when you're done.
 				</Dialog.Description>
@@ -38,11 +38,11 @@
 {:else}
 	<Drawer.Root bind:open shouldScaleBackground>
 		<Drawer.Trigger asChild let:builder>
-			<Button variant="outline" builders={[builder]}>Edit Profile</Button>
+			<Button builders={[builder]}>Create Site</Button>
 		</Drawer.Trigger>
 		<Drawer.Content>
 			<Drawer.Header class="text-left">
-				<Drawer.Title>Edit profile</Drawer.Title>
+				<Drawer.Title>Create Site</Drawer.Title>
 				<Drawer.Description>
 					Make changes to your profile here. Click save when you're done.
 				</Drawer.Description>

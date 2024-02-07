@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, primaryKey } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, primaryKey, serial } from "drizzle-orm/pg-core";
 
 export const usersTable = pgTable("users", {
     id: text("id").primaryKey()
@@ -29,7 +29,7 @@ export const sessionsTable = pgTable("sessions", {
 });
 
 export const sitesTable = pgTable("sites", {
-    id: text("id").primaryKey(),
-    name: text("name"),
-    slug: text("slug")
+    id: serial("id").primaryKey(),
+    name: text("name").notNull(),
+    slug: text("slug").unique().notNull()
 });

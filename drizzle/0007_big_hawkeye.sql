@@ -1,0 +1,1 @@
+ALTER TABLE "sites" ALTER COLUMN "id" SET DATA TYPE serial;
