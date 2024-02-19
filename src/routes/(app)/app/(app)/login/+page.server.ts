@@ -11,7 +11,7 @@ export const actions: Actions = {
         const state = generateState();
 
         const url = await github.createAuthorizationURL(state, {
-            scopes: ["email"]
+            scopes: ["email"],
         });
 
         cookies.set("github_oauth_state", state, {
@@ -21,6 +21,8 @@ export const actions: Actions = {
             sameSite: "lax",
             domain: dev ? '.platform.localhost' : PUBLIC_HOST,
         });
+
+        url.searchParams.set('redirect_to', event.url.searchParams.get('redirect_to') ?? '/')
 
         redirect(302, url.toString());
     }

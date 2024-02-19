@@ -8,6 +8,8 @@
 	import type { SubmitFunction } from './$types';
 	import { onDestroy } from 'svelte';
 
+	export let data;
+
 	let isLoading = false;
 	let isSubmitting = false;
 	let loadingTimer: ReturnType<typeof setTimeout>;
@@ -41,13 +43,23 @@
 			>
 		</Card.Header>
 		<Card.Content class="text-center">
-			<form action="?/signin_oauth" method="POST" use:enhance={handleSignIn}>
-				<Button type="submit" disabled={isSubmitting}
-					><GithubIcon class="mr-2 size-4"></GithubIcon>Continue with GitHub{#if isLoading}<Loader2Icon
-							class="ml-2 size-4 animate-spin"
-						/>{/if}</Button
-				>
-			</form>
+			{#if data.user}
+				<div class="space-y-3">
+					<p class="text-sm text-muted-foreground">You are already logged in</p>
+					<div class="flex flex-col justify-between gap-3 lg:flex-row-reverse">
+						<Button href="/">Continue to app</Button>
+						<Button href="/logout" variant="outline">Sign out</Button>
+					</div>
+				</div>
+			{:else}
+				<form action="?/signin_oauth" method="POST" use:enhance={handleSignIn}>
+					<Button type="submit" disabled={isSubmitting}
+						><GithubIcon class="mr-2 size-4"></GithubIcon>Continue with GitHub{#if isLoading}<Loader2Icon
+								class="ml-2 size-4 animate-spin"
+							/>{/if}</Button
+					>
+				</form>
+			{/if}
 		</Card.Content>
 	</Card.Root>
 </Container>

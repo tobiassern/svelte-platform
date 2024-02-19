@@ -19,9 +19,9 @@ export const GET: RequestHandler = async (event) => {
     const state = event.url.searchParams.get("state");
 
     const storedState = event.cookies.get("github_oauth_state") ?? null;
-
+    const redirect_to = event.url.searchParams.get("redirect_to");
     // return json({
-    //     code, state, storedState
+    //     code, state, storedState, redirect_to
     // })
 
     if (!code || !state || !storedState || state !== storedState) {
@@ -38,11 +38,9 @@ export const GET: RequestHandler = async (event) => {
             }
         });
         const githubUser: GitHubUser = await githubUserResponse.json();
-        console.log(githubUser);
 
         const existingUser = await event.locals.db.select().from(oauthAccounts).where(and(eq(oauthAccounts.providerId, 'github'), eq(oauthAccounts.providerUserId, githubUser.id)));
         if (existingUser[0]) {
-            console.log("EXISTING USER");
             const session = await event.locals.lucia.createSession(existingUser[0].userId, {});
             const sessionCookie = event.locals.lucia.createSessionCookie(session.id);
             event.cookies.set(sessionCookie.name, sessionCookie.value, {
@@ -50,7 +48,6 @@ export const GET: RequestHandler = async (event) => {
                 path: "/"
             });
         } else {
-            console.log("NEW USER")
             const userId = generateId(15);
             await event.locals.db.insert(users).values({
                 id: userId,

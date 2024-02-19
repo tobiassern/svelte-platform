@@ -4,16 +4,15 @@ import { sites, siteMembers } from "$lib/schemas/db/schema";
 import { eq, and } from "drizzle-orm";
 
 export const isAuthenticated = (event: ServerLoadEvent | RequestEvent) => {
-    if (!event.locals.user) {
-        redirect(302, '/login');
-    }
+    if (!event.locals.user) redirect(302, `/login?redirect_to=${event.url.pathname}`);
+
 
     return event.locals.user;
 }
 
 export const isSiteMember = async (event: ServerLoadEvent | RequestEvent) => {
 
-    if (!event.locals.user) redirect(302, '/login');
+    if (!event.locals.user) redirect(302, `/login?redirect_to=${event.url.pathname}`);
 
     if (!event.params.site_uuid) error(400, 'Need to provide site UUID');
 
@@ -34,9 +33,8 @@ export const isSiteMember = async (event: ServerLoadEvent | RequestEvent) => {
 }
 
 export const isSystemAdmin = async (event: ServerLoadEvent) => {
-    if (!event.locals.user) {
-        redirect(302, 'http://auth.platform.localhost:5173');
-    }
+    if (!event.locals.user) redirect(302, `/login?redirect_to=${event.url.pathname}`);
+
     const system_admins = await event.locals.db.query.systemAdmins.findMany();
     if (!system_admins.find(sa => sa.userId === event.locals.user?.id)) {
         error(403, 'Forbidden');

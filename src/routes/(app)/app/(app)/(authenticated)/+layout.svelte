@@ -13,7 +13,7 @@
 		<div class="flex h-full flex-col px-3 pb-3 pt-6">
 			<SiteSwitcher />
 			<Separator class="my-3"></Separator>
-			<div class="-my-3 flex-1 overflow-y-scroll py-6">
+			<div class="-my-3 flex-1 overflow-y-scroll py-6 hidden lg:block">
 				<SidebarNav
 					items={[
 						{ path: '', title: 'Dashboard', icon: LayoutDashboardIcon },

@@ -1,6 +1,5 @@
 import { GitHub } from "arctic";
 import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from "$env/static/private";
-import { dev } from "$app/environment";
 import type { RequestEvent } from "@sveltejs/kit";
 import { fail } from "@sveltejs/kit";
 
