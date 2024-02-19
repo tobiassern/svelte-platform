@@ -1,5 +1,7 @@
 <script lang="ts">
-	export let data;
+	import * as PageHeader from '$lib/components/page-header';
 </script>
 
-Dashboard for : {data.site.name}
+<PageHeader.Root>
+	<PageHeader.Title>Dashboard</PageHeader.Title>
+</PageHeader.Root>

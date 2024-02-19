@@ -1,4 +1,14 @@
 <script lang="ts">
-    $: console.log("heeej")
-    </script>
-<div>SETTINGS</div>
+	import * as PageHeader from '$lib/components/page-header';
+	import { Separator } from '$lib/components/ui/separator';
+	import Input from '$lib/components/form-fields/input.svelte';
+</script>
+
+<PageHeader.Root>
+	<PageHeader.Title>Settings</PageHeader.Title>
+</PageHeader.Root>
+
+<Separator class="my-6" />
+<div class="lg:max-w-2xl">
+	<Input class="w-full"/>
+</div>

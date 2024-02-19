@@ -3,7 +3,8 @@
 	import * as Card from '$lib/components/ui/card';
 	import { Separator } from '$lib/components/ui/separator';
 	import TeamList from './(components)/team-list.svelte';
-	import ShareInviteLink from './(components)/share-invite-link.svelte';
+	import InviteLink from './(components)/invite-link.svelte';
+	import ActivateInviteLinkForm from './(components)/activate-invite-link-form.svelte';
 	import * as PageHeader from '$lib/components/page-header';
 	export let data;
 </script>
@@ -26,7 +27,10 @@
 			<Card.Description>Invite new team members to collaborate with.</Card.Description>
 		</Card.Header>
 		<Card.Content>
-			<ShareInviteLink />
+			<div class="space-y-6">
+				<InviteLink />
+				<ActivateInviteLinkForm activate_invite_link_form={data.activate_invite_link_form} />
+			</div>
 		</Card.Content>
 	</Card.Root>
 </div>

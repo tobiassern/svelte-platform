@@ -1,10 +1,12 @@
 import type { Actions, PageServerLoad } from "./$types.js";
 import { isSiteMember } from "$lib/server/auth/access";
-import { siteMembers, users } from "$lib/schemas/db/schema.js";
+import { siteMembers, users, sites } from "$lib/schemas/db/schema";
 import { eq } from "drizzle-orm";
-import { sites } from "$lib/schemas/db/schema.js";
 import { createId } from "@paralleldrive/cuid2";
 import { fail } from "@sveltejs/kit";
+import { superValidate } from 'sveltekit-superforms';
+import { zod } from 'sveltekit-superforms/adapters';
+import { activate_invite_link_schema } from "$lib/schemas/form/index.js";
 
 export const load: PageServerLoad = async (event) => {
 
@@ -17,12 +19,31 @@ export const load: PageServerLoad = async (event) => {
         site.data = data;
     }
 
-    return { site: site.data, members: await event.locals.db.select({ id: users.id, name: users.name, avatarUrl: users.avatarUrl, email: users.email }).from(siteMembers).where(eq(siteMembers.siteId, site.id)).leftJoin(users, eq(users.id, siteMembers.userId)) };
+    const activate_invite_link_form = await superValidate(site.data, zod(activate_invite_link_schema));
+    return {
+        site: site.data,
+        members: await event.locals.db.select({ id: users.id, name: users.name, avatarUrl: users.avatarUrl, email: users.email }).from(siteMembers).where(eq(siteMembers.siteId, site.id)).leftJoin(users, eq(users.id, siteMembers.userId)),
+        activate_invite_link_form
+    };
 }
 
 export const actions: Actions = {
     'activate-invite-link': async (event) => {
         const site = await isSiteMember(event);
+
+        const activate_invite_link_form = await superValidate(event.request, zod(activate_invite_link_schema));
+        console.log(activate_invite_link_form);
+
+        if (!activate_invite_link_form.valid) {
+            // Again, return { form } and things will just work.
+            return fail(400, { activate_invite_link_form });
+        }
+
+        await event.locals.db.update(sites).set({ inviteLinkActive: activate_invite_link_form.data.inviteLinkActive ? true : false }).where(eq(sites.id, site.id))
+        // TODO: Do something with the validated form.data
+
+        // Yep, return { form } here too
+        return { activate_invite_link_form };
     },
     'remove-member': async (event) => {
         const formData = await event.request.formData();
