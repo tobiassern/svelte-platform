@@ -3,6 +3,7 @@ import { sessions, users, systemAdmins } from "../../schemas/db/schema";
 import { Lucia } from "lucia";
 import { dev } from "$app/environment";
 import type { DBType } from "$lib/server/db";
+import { PUBLIC_HOST } from '$env/static/public';
 export function initializeLucia(db: DBType) {
     const adapter = new CustomAdapter(db, sessions, users,
         // systemAdminsTable
@@ -26,7 +27,7 @@ export function initializeLucia(db: DBType) {
                 // set to `true` when using HTTPS
                 secure: !dev,
                 sameSite: "lax",
-                domain: '.platform.localhost'
+                domain: dev ? '.platform.localhost' : PUBLIC_HOST
             }
         }
     });
