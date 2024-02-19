@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, primaryKey, serial, integer, uuid, boolean } from "drizzle-orm/pg-core";
+import { pgTable, unique, text, timestamp, primaryKey, serial, integer, uuid, boolean } from "drizzle-orm/pg-core";
 import { relations } from 'drizzle-orm';
 import { createId } from '@paralleldrive/cuid2';
 
@@ -23,7 +23,7 @@ export const oauthAccounts = pgTable("oauth_accounts", {
 })
 
 export const sessions = pgTable("sessions", {
-    id: text("id").primaryKey(),
+    id: text("id").primaryKey().notNull(),
     userId: text("user_id")
         .notNull()
         .references(() => users.id, { onDelete: 'cascade' }),
@@ -38,7 +38,7 @@ export const systemAdmins = pgTable('system_admins', {
 });
 
 export const sites = pgTable("sites", {
-    id: serial("id").primaryKey(),
+    id: serial("id").primaryKey().notNull(),
     createdAt: timestamp('created_at', {
         withTimezone: true
     }).defaultNow(),
@@ -55,10 +55,11 @@ export const usersRelations = relations(users, ({ many }) => ({
 
 export const sitesRelations = relations(sites, ({ many }) => ({
     members: many(siteMembers),
+    posts: many(posts),
 }));
 
 export const siteMembers = pgTable('site_members', {
-    siteId: integer('site_id').references(() => sites.id, { onDelete: 'cascade' }),
+    siteId: integer('site_id').notNull().references(() => sites.id, { onDelete: 'cascade' }),
     userId: text("user_id").notNull().references(() => users.id, { onDelete: 'cascade' })
 }, (table) => {
     return {
@@ -75,5 +76,24 @@ export const userSiteMembersRelations = relations(siteMembers, ({ one }) => ({
     user: one(users, {
         fields: [siteMembers.userId],
         references: [users.id],
+    }),
+}));
+
+export const posts = pgTable('posts', {
+    id: uuid('uuid').primaryKey().notNull().defaultRandom(),
+    slug: text('slug'),
+    published: boolean('published').default(false),
+    title: text('title'),
+    content: text('content'),
+    site_id: integer('site_id').references(() => sites.id, { onDelete: 'cascade' })
+}, (t) => ({
+    unq: unique().on(t.site_id, t.slug)
+}))
+
+
+export const postsRelations = relations(posts, ({ one }) => ({
+    site: one(sites, {
+        fields: [posts.site_id],
+        references: [sites.id],
     }),
 }));

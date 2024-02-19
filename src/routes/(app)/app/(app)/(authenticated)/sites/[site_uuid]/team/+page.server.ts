@@ -20,6 +20,7 @@ export const load: PageServerLoad = async (event) => {
     }
 
     const activate_invite_link_form = await superValidate(site.data, zod(activate_invite_link_schema));
+    
     return {
         site: site.data,
         members: await event.locals.db.select({ id: users.id, name: users.name, avatarUrl: users.avatarUrl, email: users.email }).from(siteMembers).where(eq(siteMembers.siteId, site.id)).leftJoin(users, eq(users.id, siteMembers.userId)),

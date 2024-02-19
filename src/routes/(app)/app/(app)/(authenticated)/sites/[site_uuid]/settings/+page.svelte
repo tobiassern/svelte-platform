@@ -10,5 +10,5 @@
 
 <Separator class="my-6" />
 <div class="lg:max-w-2xl">
-	<Input class="w-full"/>
+	<Input />
 </div>

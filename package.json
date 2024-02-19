@@ -54,6 +54,7 @@
 		"@lucia-auth/adapter-drizzle": "^1.0.1",
 		"@paralleldrive/cuid2": "^2.2.2",
 		"@sveltejs/adapter-vercel": "^5.1.0",
+		"@vercel/analytics": "^1.2.1",
 		"@vercel/postgres": "^0.7.2",
 		"arctic": "^1.1.4",
 		"bits-ui": "^0.17.0",

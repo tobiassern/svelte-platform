@@ -1,0 +1,1 @@
+ALTER TABLE "posts" ADD CONSTRAINT "posts_site_id_slug_unique" UNIQUE("site_id","slug");
