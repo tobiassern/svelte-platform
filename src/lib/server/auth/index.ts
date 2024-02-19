@@ -3,7 +3,6 @@ import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from "$env/static/private";
 import { dev } from "$app/environment";
 import type { RequestEvent } from "@sveltejs/kit";
 import { fail } from "@sveltejs/kit";
-import { lucia } from "./lucia";
 
 
 const github = new GitHub(GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET);
@@ -13,8 +12,8 @@ const signOut = async (event: RequestEvent) => {
     if (!event.locals.session) {
         return fail(401);
     }
-    await lucia.invalidateSession(event.locals.session.id);
-    const sessionCookie = lucia.createBlankSessionCookie();
+    await event.locals.lucia.invalidateSession(event.locals.session.id);
+    const sessionCookie = event.locals.lucia.createBlankSessionCookie();
     event.cookies.set(sessionCookie.name, sessionCookie.value, {
         path: ".",
         ...sessionCookie.attributes
@@ -22,4 +21,4 @@ const signOut = async (event: RequestEvent) => {
     return true;
 }
 
-export { lucia, github, signOut }
+export { github, signOut }

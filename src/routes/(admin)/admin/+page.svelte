@@ -110,16 +110,9 @@
 
 	const { selectedDataIds } = pluginStates.select;
 
-	const hideableCols = ['status', 'email', 'amount'];
+	const hideableCols = ['name', 'slug'];
 </script>
 
-<ul>
-	{#each sites as site}
-		<li>{site.name} {site.slug}</li>
-	{:else}
-		No sites found
-	{/each}
-</ul>
 <form action="?/create-site" method="POST">
 	<input name="name" type="text" />
 	<input name="slug" type="text" />
@@ -131,7 +124,7 @@
 	>
 		<Input
 			class="w-full lg:max-w-sm"
-			placeholder="Filter emails..."
+			placeholder="Filter sites..."
 			type="text"
 			bind:value={$filterValue}
 		/>

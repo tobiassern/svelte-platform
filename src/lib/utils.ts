@@ -60,3 +60,11 @@ export const flyAndScale = (
         easing: cubicOut
     };
 };
+
+export const getInitials = (text: string | null) => {
+    if (!text) return '';
+    return text
+        .split(' ')
+        .map((txt) => txt[0]?.toUpperCase() ?? '')
+        .join('');
+};

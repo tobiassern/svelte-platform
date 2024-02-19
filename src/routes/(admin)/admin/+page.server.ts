@@ -1,11 +1,13 @@
 import type { Actions, PageServerLoad } from "./$types";
-import { db } from "$lib/server/db";
-import { sitesTable } from "$lib/server/db/schema";
+import { sites } from "$lib/schemas/db/schema";
 import { fail } from "@sveltejs/kit";
+import { isSystemAdmin } from "$lib/server/auth/access";
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async (event) => {
 
-    const result = await db.query.sitesTable.findMany();
+    await isSystemAdmin(event);
+
+    const result = await event.locals.db.query.sites.findMany();
 
     return {
         sites: result
@@ -13,7 +15,7 @@ export const load: PageServerLoad = async () => {
 }
 
 export const actions: Actions = {
-    'create-site': async ({ request }) => {
+    'create-site': async ({ request, locals }) => {
         const data = await request.formData();
         const name = data.get('name')?.toString();
         const slug = data.get('slug')?.toString();
@@ -24,6 +26,6 @@ export const actions: Actions = {
         if (!slug) {
             throw fail(400, { message: 'Must provide slug' })
         }
-        const newSite = await db.insert(sitesTable).values({ name, slug }).returning();
+        const newSite = await locals.db.insert(sites).values({ name, slug }).returning();
     }
 }

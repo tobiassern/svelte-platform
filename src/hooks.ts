@@ -8,8 +8,6 @@ export const reroute: Reroute = ({ url }) => {
         return '/app' + url.pathname;
     } else if (`admin.${PUBLIC_HOST}` === url.host) {
         return '/admin' + url.pathname;
-    } else if (`auth.${PUBLIC_HOST}` === url.host) {
-        return '/auth' + url.pathname;
     } else {
         return '/public' + url.pathname;
     }
