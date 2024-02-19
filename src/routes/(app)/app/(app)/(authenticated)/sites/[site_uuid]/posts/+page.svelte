@@ -8,6 +8,7 @@
 	import { enhance } from '$app/forms';
 	import type { SubmitFunction } from './$types.js';
 	import { onDestroy } from 'svelte';
+	import { applyAction } from '$app/forms';
 	export let data;
 
 	let isLoading = false;
@@ -21,7 +22,7 @@
 		}, 250);
 
 		return async ({ update }) => {
-			update();
+			await update();
 			clearTimeout(loadingTimer);
 			isLoading = false;
 			isSubmitting = false;
