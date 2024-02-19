@@ -3,6 +3,7 @@ import { generateState } from "arctic";
 import { github } from "$lib/server/auth";
 import { dev } from "$app/environment";
 import { redirect } from "@sveltejs/kit";
+import { PUBLIC_HOST } from "$env/static/public";
 
 export const actions: Actions = {
     'signin_oauth': async (event) => {
@@ -18,7 +19,7 @@ export const actions: Actions = {
             secure: !dev,
             maxAge: 60 * 10,
             sameSite: "lax",
-            domain: '.platform.localhost',
+            domain: dev ? '.platform.localhost' : PUBLIC_HOST,
         });
 
         redirect(302, url.toString());
