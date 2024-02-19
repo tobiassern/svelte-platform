@@ -81,9 +81,14 @@ export const userSiteMembersRelations = relations(siteMembers, ({ one }) => ({
 
 export const posts = pgTable('posts', {
     id: uuid('uuid').primaryKey().notNull().defaultRandom(),
+    created_at: timestamp("expires_at", {
+        withTimezone: true,
+        mode: "date"
+    }).notNull().defaultNow(),
     slug: text('slug'),
     published: boolean('published').default(false),
     title: text('title'),
+    description: text('description'),
     content: text('content'),
     site_id: integer('site_id').references(() => sites.id, { onDelete: 'cascade' })
 }, (t) => ({

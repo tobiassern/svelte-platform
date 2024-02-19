@@ -51,8 +51,10 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@formkit/auto-animate": "^0.8.1",
 		"@lucia-auth/adapter-drizzle": "^1.0.1",
 		"@paralleldrive/cuid2": "^2.2.2",
+		"@sindresorhus/slugify": "^2.2.1",
 		"@sveltejs/adapter-vercel": "^5.1.0",
 		"@vercel/analytics": "^1.2.1",
 		"@vercel/postgres": "^0.7.2",

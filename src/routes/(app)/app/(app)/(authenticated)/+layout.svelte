@@ -9,11 +9,11 @@
 </script>
 
 <div class="flex">
-	<aside class="fixed left-0 top-0 h-dvh w-64 border-r">
+	<aside class="fixed left-0 top-0 h-dvh w-64 border-r hidden lg:block">
 		<div class="flex h-full flex-col px-3 pb-3 pt-6">
 			<SiteSwitcher />
 			<Separator class="my-3"></Separator>
-			<div class="-my-3 flex-1 overflow-y-scroll py-6 hidden lg:block">
+			<div class="-my-3 flex-1 overflow-y-scroll py-6">
 				<SidebarNav
 					items={[
 						{ path: '', title: 'Dashboard', icon: LayoutDashboardIcon },
@@ -27,7 +27,7 @@
 			<UserNav />
 		</div>
 	</aside>
-	<main class="min-h-dvh flex-1 pl-64">
+	<main class="min-h-dvh flex-1 lg:pl-64">
 		<Container class="h-full py-6">
 			<slot />
 		</Container>

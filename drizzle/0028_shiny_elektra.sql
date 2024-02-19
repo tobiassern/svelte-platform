@@ -1,0 +1,1 @@
+ALTER TABLE "posts" ADD COLUMN "expires_at" timestamp with time zone DEFAULT now() NOT NULL;

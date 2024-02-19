@@ -20,7 +20,7 @@ export const load: PageServerLoad = async (event) => {
     }
 
     const activate_invite_link_form = await superValidate(site.data, zod(activate_invite_link_schema));
-    
+
     return {
         site: site.data,
         members: await event.locals.db.select({ id: users.id, name: users.name, avatarUrl: users.avatarUrl, email: users.email }).from(siteMembers).where(eq(siteMembers.siteId, site.id)).leftJoin(users, eq(users.id, siteMembers.userId)),
@@ -33,7 +33,6 @@ export const actions: Actions = {
         const site = await isSiteMember(event);
 
         const activate_invite_link_form = await superValidate(event.request, zod(activate_invite_link_schema));
-        console.log(activate_invite_link_form);
 
         if (!activate_invite_link_form.valid) {
             // Again, return { form } and things will just work.

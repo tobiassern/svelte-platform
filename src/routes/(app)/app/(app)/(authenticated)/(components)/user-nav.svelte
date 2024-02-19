@@ -5,7 +5,15 @@
 	import { Button } from '$lib/components/ui/button';
 	import { ChevronsUpDownIcon } from 'lucide-svelte';
 	import { getInitials } from '$lib/utils';
-
+	import {
+		PlusCircleIcon,
+		LogOutIcon,
+		User2Icon,
+		SunIcon,
+		MoonStarIcon,
+		MonitorIcon
+	} from 'lucide-svelte';
+	import { setMode, resetMode, mode } from 'mode-watcher';
 </script>
 
 {#if $page.data.user}
@@ -31,12 +39,32 @@
 			</DropdownMenu.Label>
 			<DropdownMenu.Separator />
 			<DropdownMenu.Group>
-				<DropdownMenu.Item href="/profile">Profile</DropdownMenu.Item>
-
-				<DropdownMenu.Item>New Site</DropdownMenu.Item>
+				<DropdownMenu.Item href="/profile"
+					><User2Icon class="mr-2 size-4" />Profile</DropdownMenu.Item
+				>
+				<DropdownMenu.Item><PlusCircleIcon class="mr-2 size-4" />New Site</DropdownMenu.Item>
 			</DropdownMenu.Group>
 			<DropdownMenu.Separator />
-			<DropdownMenu.Item href="/logout">Log out</DropdownMenu.Item>
+			<DropdownMenu.Sub>
+				<DropdownMenu.SubTrigger
+					><svelte:component this={$mode === 'dark' ? MoonStarIcon : SunIcon} class="mr-2 size-4"
+					></svelte:component>Theme</DropdownMenu.SubTrigger
+				>
+				<DropdownMenu.SubContent>
+					<DropdownMenu.Item on:click={() => setMode('light')}
+						><SunIcon class="mr-2 size-4"></SunIcon>Light</DropdownMenu.Item
+					>
+					<DropdownMenu.Item on:click={() => setMode('dark')}
+						><MoonStarIcon class="mr-2 size-4"></MoonStarIcon>Dark</DropdownMenu.Item
+					>
+					<DropdownMenu.Item on:click={() => resetMode()}
+						><MonitorIcon class="mr-2 size-4"></MonitorIcon>System</DropdownMenu.Item
+					>
+				</DropdownMenu.SubContent>
+			</DropdownMenu.Sub>
+			<DropdownMenu.Separator />
+			<DropdownMenu.Item href="/logout"><LogOutIcon class="mr-2 size-4" />Log out</DropdownMenu.Item
+			>
 		</DropdownMenu.Content>
 	</DropdownMenu.Root>
 {/if}
