@@ -1,0 +1,1 @@
+ALTER TABLE "posts" RENAME COLUMN "expires_at" TO "created_at";

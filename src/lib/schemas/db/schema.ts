@@ -81,7 +81,7 @@ export const userSiteMembersRelations = relations(siteMembers, ({ one }) => ({
 
 export const posts = pgTable('posts', {
     id: uuid('uuid').primaryKey().notNull().defaultRandom(),
-    created_at: timestamp("expires_at", {
+    created_at: timestamp("created_at", {
         withTimezone: true,
         mode: "date"
     }).notNull().defaultNow(),
