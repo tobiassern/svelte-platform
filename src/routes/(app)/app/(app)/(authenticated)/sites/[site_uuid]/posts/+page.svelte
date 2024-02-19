@@ -34,7 +34,7 @@
 	});
 </script>
 
-<div class="flex items-center justify-between gap-3">
+<div class="flex items-start justify-between gap-3">
 	<PageHeader.Root>
 		<PageHeader.Title>Posts</PageHeader.Title>
 	</PageHeader.Root>
