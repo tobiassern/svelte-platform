@@ -47,7 +47,9 @@
 					/>
 					<Avatar.Fallback>SC</Avatar.Fallback>
 				</Avatar.Root>
-				{selectedSite.name}
+				<div class="overflow-hidden text-ellipsis">
+					{selectedSite.name}
+				</div>
 			{:else}
 				Select site
 			{/if}

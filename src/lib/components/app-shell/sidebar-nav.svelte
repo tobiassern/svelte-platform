@@ -7,7 +7,7 @@
 	import { SailboatIcon } from 'lucide-svelte';
 
 	let className: string | undefined | null = undefined;
-	export let items: { path: string; title: string, icon: typeof SailboatIcon }[];
+	export let items: { path: string; title: string; icon: typeof SailboatIcon }[];
 	export { className as class };
 
 	const [send, receive] = crossfade({
