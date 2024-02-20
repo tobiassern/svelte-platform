@@ -21,12 +21,12 @@
 		>
 	</Card.Header>
 	<Card.Content>
-		<ul class="space-y-0.5 flex flex-col">
+		<ul class="flex flex-col space-y-0.5">
 			{#each sessions as session (session.id)}
 				<li class="-mx-3 flex items-center justify-between gap-x-3 rounded p-3" animate:flip>
 					<div>
-						<p>Expires: {new Date(session.expiresAt).toLocaleString()}</p>
-						<p>ID: {session.id}</p>
+						<p class="text-sm">Expires: {new Date(session.expiresAt).toLocaleString()}</p>
+						<p class="text-sm">ID: {session.id}</p>
 					</div>
 					{#if currentSession?.id === session.id}
 						<Badge variant="outline">Current session</Badge>
