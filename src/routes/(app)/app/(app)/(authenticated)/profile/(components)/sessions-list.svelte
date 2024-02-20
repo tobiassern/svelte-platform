@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { sessions as sessionSchema } from '$lib/schemas/db/schema';
+	import { sessions_table } from '$lib/schemas/db/schema';
 	import * as Card from '$lib/components/ui/card';
 	import { Trash2Icon } from 'lucide-svelte';
 	import { Button } from '$lib/components/ui/button';
@@ -7,7 +7,7 @@
 	import { enhance } from '$app/forms';
 	import { flip } from 'svelte/animate';
 
-	type Session = typeof sessionSchema.$inferSelect;
+	type Session = typeof sessions_table.$inferSelect;
 
 	export let sessions: Session[];
 	export let currentSession: import('lucia').Session | null;

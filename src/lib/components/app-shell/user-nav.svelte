@@ -5,14 +5,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import { ChevronsUpDownIcon } from 'lucide-svelte';
 	import { getInitials } from '$lib/utils';
-	import {
-		PlusCircleIcon,
-		LogOutIcon,
-		User2Icon,
-		SunIcon,
-		MoonStarIcon,
-		MonitorIcon
-	} from 'lucide-svelte';
+	import { LogOutIcon, User2Icon, SunIcon, MoonStarIcon, MonitorIcon } from 'lucide-svelte';
 	import { setMode, resetMode, mode } from 'mode-watcher';
 </script>
 
@@ -42,7 +35,6 @@
 				<DropdownMenu.Item href="/profile"
 					><User2Icon class="mr-2 size-4" />Profile</DropdownMenu.Item
 				>
-				<DropdownMenu.Item><PlusCircleIcon class="mr-2 size-4" />New Site</DropdownMenu.Item>
 			</DropdownMenu.Group>
 			<DropdownMenu.Separator />
 			<DropdownMenu.Sub>

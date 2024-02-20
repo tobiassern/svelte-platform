@@ -1,6 +1,6 @@
 import type { RequestEvent, ServerLoadEvent } from "@sveltejs/kit";
 import { redirect, error } from "@sveltejs/kit";
-import { sites, siteMembers } from "$lib/schemas/db/schema";
+import { sites_table, siteMembers } from "$lib/schemas/db/schema";
 import { eq, and } from "drizzle-orm";
 
 export const isAuthenticated = (event: ServerLoadEvent | RequestEvent) => {
@@ -14,22 +14,21 @@ export const isSiteMember = async (event: ServerLoadEvent | RequestEvent) => {
 
     if (!event.locals.user) redirect(302, `/login?redirect_to=${event.url.pathname}`);
 
-    if (!event.params.site_uuid) error(400, 'Need to provide site UUID');
+    if (!event.params.site_id) error(400, 'Need to provide site UUID');
 
-    const result = await event.locals.db.query.sites.findFirst({
-        where: eq(sites.uuid, event.params.site_uuid),
+    const result = await event.locals.db.query.sites_table.findFirst({
+        where: eq(sites_table.id, event.params.site_id),
         with: {
             members: {
-                where: eq(siteMembers.userId, event.locals.user.id)
+                where: eq(siteMembers.user_id, event.locals.user.id)
             }
         }
     });
 
     if (!result) error(404, 'Not found');
-    if (!result.members.find(member => member.userId === event.locals.user?.id)) error(403, 'Forbidden');
+    if (!result.members.find(member => member.user_id === event.locals.user?.id)) error(403, 'Forbidden');
 
-    const { id, members, ...data } = result
-    return { data, id };
+    return result;
 }
 
 export const isSystemAdmin = async (event: ServerLoadEvent) => {

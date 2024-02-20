@@ -42,14 +42,14 @@
 					/>
 				</div>
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
-					<Label for="slug">Public domain</Label>
+					<Label for="subdomain">Public domain</Label>
 					<Input
 						type="text"
-						id="slug"
-						name="slug"
+						id="subdomain"
+						name="subdomain"
 						placeholder=""
-						bind:value={$form.slug}
-						{...$constraints.slug}
+						bind:value={$form.subdomain}
+						{...$constraints.subdomain}
 					/>
 				</div>
 			</Card.Content>

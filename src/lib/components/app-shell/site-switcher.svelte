@@ -8,10 +8,10 @@
 
 	import { tick } from 'svelte';
 	import { page } from '$app/stores';
-	import { sites } from '$lib/schemas/db/schema';
+	import { sites_table } from '$lib/schemas/db/schema';
 	import { goto } from '$app/navigation';
 
-	type Site = typeof sites.$inferSelect;
+	type Site = typeof sites_table.$inferSelect;
 
 	let className: string | undefined | null = undefined;
 	export { className as class };
@@ -42,7 +42,7 @@
 			{#if selectedSite}
 				<Avatar.Root class="mr-2 h-5 w-5">
 					<Avatar.Image
-						src="https://avatar.vercel.sh/${selectedSite.slug}.png"
+						src="https://avatar.vercel.sh/${selectedSite.id}.png"
 						alt={selectedSite.name}
 					/>
 					<Avatar.Fallback>SC</Avatar.Fallback>
@@ -68,8 +68,8 @@
 							<Command.Item
 								onSelect={() => {
 									selectedSite = site;
-									if (selectedSite && selectedSite.uuid !== $page.params.site_uuid) {
-										goto(`/sites/${selectedSite.uuid}`);
+									if (selectedSite && selectedSite.id !== $page.params.site_id) {
+										goto(`/sites/${selectedSite.id}`);
 									}
 									closeAndRefocusTrigger(ids.trigger);
 								}}
@@ -77,14 +77,14 @@
 								class="text-sm"
 							>
 								<Avatar.Root class="mr-2 h-5 w-5">
-									<Avatar.Image src="https://avatar.vercel.sh/${site.uuid}.png" alt={site.name} />
+									<Avatar.Image src="https://avatar.vercel.sh/${site.id}.png" alt={site.name} />
 									<Avatar.Fallback>SC</Avatar.Fallback>
 								</Avatar.Root>
 								{site.name}
 								<CheckIcon
 									class={cn(
 										'ml-auto h-4 w-4',
-										selectedSite?.uuid !== site.uuid && 'text-transparent'
+										selectedSite?.id !== site.id && 'text-transparent'
 									)}
 								/>
 							</Command.Item>

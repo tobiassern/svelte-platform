@@ -1,11 +1,11 @@
 import { CustomAdapter } from './customAdapter';
-import { sessions, users, systemAdmins } from "../../schemas/db/schema";
+import { sessions_table, users_table, systemAdmins } from "../../schemas/db/schema";
 import { Lucia } from "lucia";
 import { dev } from "$app/environment";
 import type { DBType } from "$lib/server/db";
 import { PUBLIC_HOST } from '$env/static/public';
 export function initializeLucia(db: DBType) {
-    const adapter = new CustomAdapter(db, sessions, users,
+    const adapter = new CustomAdapter(db, sessions_table, users_table,
         // systemAdminsTable
     );
 
@@ -33,7 +33,7 @@ export function initializeLucia(db: DBType) {
     });
 }
 
-type User = typeof users.$inferSelect;
+type User = typeof users_table.$inferSelect;
 declare module "lucia" {
     interface Register {
         Lucia: ReturnType<typeof initializeLucia>;

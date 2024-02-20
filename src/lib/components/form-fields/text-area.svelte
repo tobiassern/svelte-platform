@@ -5,7 +5,7 @@
 <script lang="ts" generics="T extends Record<string, unknown>">
 	import { formFieldProxy, type SuperForm, type FormPathLeaves } from 'sveltekit-superforms';
 
-	import { Input } from '$lib/components/ui/input';
+	import { Textarea } from '$lib/components/ui/textarea';
 	import { Label } from '$lib/components/ui/label';
 
 	export let form: SuperForm<T>;
@@ -18,7 +18,7 @@
 
 <div class="grid w-full items-center gap-1.5">
 	<Label for={field}>{label}</Label>
-	<Input
+	<Textarea
 		name={field}
 		aria-invalid={$errors ? 'true' : undefined}
 		bind:value={$value}

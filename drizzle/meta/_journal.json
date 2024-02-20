@@ -211,6 +211,41 @@
       "when": 1708382799889,
       "tag": "0029_small_tarantula",
       "breakpoints": true
+    },
+    {
+      "idx": 30,
+      "version": "5",
+      "when": 1708423870147,
+      "tag": "0030_spotty_proemial_gods",
+      "breakpoints": true
+    },
+    {
+      "idx": 31,
+      "version": "5",
+      "when": 1708424005949,
+      "tag": "0031_tired_living_mummy",
+      "breakpoints": true
+    },
+    {
+      "idx": 32,
+      "version": "5",
+      "when": 1708424765679,
+      "tag": "0032_bizarre_ultron",
+      "breakpoints": true
+    },
+    {
+      "idx": 33,
+      "version": "5",
+      "when": 1708428800127,
+      "tag": "0033_violet_otto_octavius",
+      "breakpoints": true
+    },
+    {
+      "idx": 34,
+      "version": "5",
+      "when": 1708433083846,
+      "tag": "0034_lucky_talisman",
+      "breakpoints": true
     }
   ]
 }

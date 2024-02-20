@@ -2,7 +2,7 @@ import type { Actions, PageServerLoad } from "./$types";
 import { redirect } from "@sveltejs/kit";
 import { eq } from "drizzle-orm";
 import { fail } from "@sveltejs/kit";
-import { sites, siteMembers } from "$lib/schemas/db/schema";
+import { sites_table, siteMembers } from "$lib/schemas/db/schema";
 import { isAuthenticated } from "$lib/server/auth/access";
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
@@ -29,13 +29,13 @@ export const actions: Actions = {
 
 
         const site = await event.locals.db.transaction(async (tx) => {
-            const [site] = await tx.insert(sites).values(form.data).returning();
-            await tx.insert(siteMembers).values({ siteId: site.id, userId: user.id });
+            const [site] = await tx.insert(sites_table).values(form.data).returning();
+            await tx.insert(siteMembers).values({ site_id: site.id, user_id: user.id });
 
             return site;
         });
 
-        redirect(302, `/sites/${site.uuid}`);
+        redirect(302, `/sites/${site.id}`);
 
     }
 }

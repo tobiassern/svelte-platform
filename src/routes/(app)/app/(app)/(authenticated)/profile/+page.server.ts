@@ -1,7 +1,7 @@
 import type { Actions, PageServerLoad } from "./$types";
 import { isAuthenticated } from "$lib/server/auth/access";
 import { eq, and } from "drizzle-orm";
-import { sessions } from "$lib/schemas/db/schema";
+import { sessions_table } from "$lib/schemas/db/schema";
 import { fail } from "@sveltejs/kit";
 
 export const load: PageServerLoad = async (event) => {
@@ -11,8 +11,8 @@ export const load: PageServerLoad = async (event) => {
     return {
         user,
         currentSession: event.locals.session,
-        sessions: await event.locals.db.query.sessions.findMany({
-            where: eq(sessions.userId, user.id)
+        sessions: await event.locals.db.query.sessions_table.findMany({
+            where: eq(sessions_table.userId, user.id)
         })
     }
 
@@ -32,7 +32,7 @@ export const actions: Actions = {
             return fail(400, { message: 'Not possible to delete current session. Use logout functionality instead.' });
         }
 
-        await event.locals.db.delete(sessions).where(and(eq(sessions.userId, user.id), eq(sessions.id, sessionId)));
+        await event.locals.db.delete(sessions_table).where(and(eq(sessions_table.userId, user.id), eq(sessions_table.id, sessionId)));
 
         return { sucess: true }
     }

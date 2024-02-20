@@ -1,6 +1,6 @@
 import type { RequestHandler } from "./$types";
 import { github } from "$lib/server/auth";
-import { oauthAccounts, users } from "$lib/schemas/db/schema";
+import { oauth_accounts_table, users_table } from "$lib/schemas/db/schema";
 import { eq, and } from "drizzle-orm";
 import { generateId } from "lucia";
 import { OAuth2RequestError } from "arctic";
@@ -39,7 +39,7 @@ export const GET: RequestHandler = async (event) => {
         });
         const githubUser: GitHubUser = await githubUserResponse.json();
 
-        const existingUser = await event.locals.db.select().from(oauthAccounts).where(and(eq(oauthAccounts.providerId, 'github'), eq(oauthAccounts.providerUserId, githubUser.id)));
+        const existingUser = await event.locals.db.select().from(oauth_accounts_table).where(and(eq(oauth_accounts_table.providerId, 'github'), eq(oauth_accounts_table.providerUserId, githubUser.id)));
         if (existingUser[0]) {
             const session = await event.locals.lucia.createSession(existingUser[0].userId, {});
             const sessionCookie = event.locals.lucia.createSessionCookie(session.id);
@@ -49,12 +49,12 @@ export const GET: RequestHandler = async (event) => {
             });
         } else {
             const userId = generateId(15);
-            await event.locals.db.insert(users).values({
+            await event.locals.db.insert(users_table).values({
                 id: userId,
                 avatarUrl: githubUser.avatar_url,
                 name: githubUser.name
             });
-            await event.locals.db.insert(oauthAccounts).values({ providerId: "github", providerUserId: githubUser.id, userId: userId })
+            await event.locals.db.insert(oauth_accounts_table).values({ providerId: "github", providerUserId: githubUser.id, userId: userId })
             const session = await event.locals.lucia.createSession(userId, {});
             const sessionCookie = event.locals.lucia.createSessionCookie(session.id);
             event.cookies.set(sessionCookie.name, sessionCookie.value, {
