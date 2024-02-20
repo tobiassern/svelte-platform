@@ -76,7 +76,7 @@
 							bind:this={removeMemberForm}
 							use:enhance={handleRemoveMember}
 						>
-							<input type="text" name="user_id" value="{member.id}" readonly hidden />
+							<input type="text" name="user_id" value={member.id} readonly hidden />
 							<DropdownMenu.Item
 								disabled={isSubmitting}
 								on:click={() => removeMemberForm.requestSubmit()}

@@ -12,9 +12,7 @@
 
 	export let sForm: SuperValidated<Infer<typeof update_site_general_information_schema>>;
 
-	const form = superForm(sForm, {
-
-	});
+	const form = superForm(sForm, {});
 
 	const { enhance, submitting, delayed, form: frm } = form;
 </script>

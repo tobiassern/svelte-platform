@@ -5,7 +5,7 @@
 	import { Title } from '$lib/components/title';
 	import { Button } from '$lib/components/ui/button';
 	import { MoveLeftIcon } from 'lucide-svelte';
-    import { ModeWatcher } from 'mode-watcher';
+	import { ModeWatcher } from 'mode-watcher';
 </script>
 
 <svelte:head>

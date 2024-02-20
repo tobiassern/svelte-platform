@@ -1,7 +1,6 @@
 <script lang="ts">
-	import type { HTMLTextareaAttributes, HTMLInputAttributes} from 'svelte/elements';
+	import type { HTMLTextareaAttributes, HTMLInputAttributes } from 'svelte/elements';
 	import { cn } from '$lib/utils';
-
 
 	let className: HTMLTextareaAttributes['class'] = undefined;
 	export let value: HTMLInputAttributes['value'] = undefined;

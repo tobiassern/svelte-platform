@@ -3,10 +3,10 @@
 	import SiteSwitcher from './site-switcher.svelte';
 	import UserNav from './user-nav.svelte';
 	import SidebarNav from './sidebar-nav.svelte';
-    import { LayoutDashboardIcon, NewspaperIcon, Users2Icon, CogIcon } from 'lucide-svelte';
-    import { cn } from '$lib/utils';
-    let className: HTMLDivElement['className'] | undefined = undefined;
-    export {className as class};
+	import { LayoutDashboardIcon, NewspaperIcon, Users2Icon, CogIcon } from 'lucide-svelte';
+	import { cn } from '$lib/utils';
+	let className: HTMLDivElement['className'] | undefined = undefined;
+	export { className as class };
 </script>
 
 <div class={cn('flex h-full flex-col', className)}>

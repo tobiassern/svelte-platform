@@ -9,7 +9,6 @@
 	$: invite_link = $page.data.site.invite_link_id
 		? `${$page.url.host}/invite/${$page.data.site.invite_link_id}`
 		: undefined;
-
 </script>
 
 <div class="flex space-x-2">

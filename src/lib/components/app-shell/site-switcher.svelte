@@ -82,10 +82,7 @@
 								</Avatar.Root>
 								{site.name}
 								<CheckIcon
-									class={cn(
-										'ml-auto h-4 w-4',
-										selectedSite?.id !== site.id && 'text-transparent'
-									)}
+									class={cn('ml-auto h-4 w-4', selectedSite?.id !== site.id && 'text-transparent')}
 								/>
 							</Command.Item>
 						{/each}

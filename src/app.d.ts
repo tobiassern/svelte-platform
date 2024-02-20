@@ -9,8 +9,8 @@ declare global {
 			// db: import('drizzle-orm/pg-postgres').VercelPgDatabase<typeof import('$lib/schema/schema') >;
 			db: DBType;
 			lucia: Lucia;
-			user: import("lucia").User | null;
-			session: import("lucia").Session | null;
+			user: import('lucia').User | null;
+			session: import('lucia').Session | null;
 		}
 		// interface PageData {
 		// 	site: typeof sites.$inferSelect | undefined | null;
@@ -21,4 +21,4 @@ declare global {
 	}
 }
 
-export { };
+export {};

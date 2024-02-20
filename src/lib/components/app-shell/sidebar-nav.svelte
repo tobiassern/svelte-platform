@@ -4,7 +4,13 @@
 	import { Button } from '$lib/components/ui/button';
 	import { cubicInOut } from 'svelte/easing';
 	import { crossfade } from 'svelte/transition';
-	import { SailboatIcon, ExternalLinkIcon } from 'lucide-svelte';
+	import {
+		SailboatIcon,
+		ExternalLinkIcon,
+		GithubIcon,
+		LayoutIcon,
+		TriangleIcon
+	} from 'lucide-svelte';
 	import { PUBLIC_HOST } from '$env/static/public';
 
 	let className: string | undefined | null = undefined;
@@ -15,6 +21,24 @@
 		duration: 250,
 		easing: cubicInOut
 	});
+
+	const promotional_links = [
+		{
+			label: 'Star on GitHub',
+			href: '#',
+			icon: GithubIcon
+		},
+		{
+			label: 'View demo site',
+			href: '#',
+			icon: LayoutIcon
+		},
+		{
+			label: 'Deploy your own',
+			icon: TriangleIcon,
+			href: '#'
+		}
+	];
 </script>
 
 {#if $page.data.site && $page.params.site_id}
@@ -48,8 +72,6 @@
 					</Button>
 				</li>
 			{/each}
-		</ul>
-		<ul>
 			<li>
 				<Button
 					href="{$page.url.protocol}//{$page.data.site.subdomain}.{PUBLIC_HOST}"
@@ -63,6 +85,26 @@
 					</div>
 				</Button>
 			</li>
+		</ul>
+		<ul>
+			{#each promotional_links as promotional_link}
+				<li>
+					<Button
+						href="{$page.url.protocol}//{$page.data.site.subdomain}.{PUBLIC_HOST}"
+						variant="ghost"
+						class={cn('relative w-full justify-start hover:bg-transparent hover:underline')}
+						data-sveltekit-noscroll
+					>
+						<div class="relative flex w-full items-center">
+							<svelte:component this={promotional_link.icon} class="mr-2 size-4" />
+							<span class="flex-1">
+								{promotional_link.label}
+							</span>
+							<ExternalLinkIcon class="ml-2 size-4" />
+						</div>
+					</Button>
+				</li>
+			{/each}
 		</ul>
 	</nav>
 {/if}

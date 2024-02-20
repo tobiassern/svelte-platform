@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { PUBLIC_HOST } from '$env/static/public';
-    import { GithubIcon } from 'lucide-svelte';
+	import { GithubIcon } from 'lucide-svelte';
 </script>
 
 <svelte:head>
@@ -20,8 +20,8 @@
 					/>
 				</a>
 			</div>
-			<div class="flex flex-1 justify-end items-center gap-6">
-                <a href="https://github.com/tobiassern/svelte-platform"><GithubIcon class="size-5"/></a>
+			<div class="flex flex-1 items-center justify-end gap-6">
+				<a href="https://github.com/tobiassern/svelte-platform"><GithubIcon class="size-5" /></a>
 				<a
 					href="{$page.url.protocol}//app.{PUBLIC_HOST}"
 					class="text-sm font-semibold leading-6 text-gray-900"
@@ -42,16 +42,6 @@
 			></div>
 		</div>
 		<div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-			<div class="hidden sm:mb-8 sm:flex sm:justify-center">
-				<div
-					class="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20"
-				>
-					Announcing our next round of funding. <a href="#" class="font-semibold text-indigo-600"
-						><span class="absolute inset-0" aria-hidden="true"></span>Read more
-						<span aria-hidden="true">&rarr;</span></a
-					>
-				</div>
-			</div>
 			<div class="text-center">
 				<h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
 					Svelte Platforms Starter Kit
