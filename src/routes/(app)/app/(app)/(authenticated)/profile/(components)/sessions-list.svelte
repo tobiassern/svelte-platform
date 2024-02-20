@@ -5,6 +5,8 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Badge } from '$lib/components/ui/badge';
 	import { enhance } from '$app/forms';
+	import { flip } from 'svelte/animate';
+
 	type Session = typeof sessionSchema.$inferSelect;
 
 	export let sessions: Session[];
@@ -19,9 +21,9 @@
 		>
 	</Card.Header>
 	<Card.Content>
-		<ul class="space-y-0.5">
-			{#each sessions as session}
-				<li class="-mx-3 flex items-center justify-between gap-x-3 rounded p-3">
+		<ul class="space-y-0.5 flex flex-col">
+			{#each sessions as session (session.id)}
+				<li class="-mx-3 flex items-center justify-between gap-x-3 rounded p-3" animate:flip>
 					<div>
 						<p>Expires: {new Date(session.expiresAt).toLocaleString()}</p>
 						<p>ID: {session.id}</p>

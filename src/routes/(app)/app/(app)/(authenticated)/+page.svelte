@@ -2,7 +2,7 @@
 	import { Container } from '$lib/components/container';
 	import * as Card from '$lib/components/ui/card';
 	import { Button } from '$lib/components/ui/button';
-	import { ExternalLinkIcon } from 'lucide-svelte';
+	import { ExternalLinkIcon, PlusCircleIcon } from 'lucide-svelte';
 	export let data;
 	$: console.log(data.sites);
 </script>
@@ -21,4 +21,15 @@
 			</Card.Content>
 		</Card.Root>
 	{/each}
+	<Card.Root>
+		<Card.Header>
+			<Card.Title>Your next site</Card.Title>
+			<Card.Description>The one with the most sites win.</Card.Description>
+		</Card.Header>
+		<Card.Content>
+			<Button href="/create-site" class="w-full" variant="outline"
+				><PlusCircleIcon class="mr-2 size-4"></PlusCircleIcon>Create site</Button
+			>
+		</Card.Content>
+	</Card.Root>
 </Container>

@@ -1,27 +1,58 @@
 <script lang="ts">
 	import { Container } from '$lib/components/container';
-	import * as PageHeader from '$lib/components/page-header';
+	import { applyAction, enhance } from '$app/forms';
+
+	import { Button } from '$lib/components/ui/button';
+	import * as Card from '$lib/components/ui/card';
+	import { Loader2Icon } from 'lucide-svelte';
+	import { onDestroy } from 'svelte';
+	import type { SubmitFunction } from './$types.js';
+	import { toast } from 'svelte-sonner';
 
 	export let data;
+
+	let isLoading = false;
+	let isSubmitting = false;
+	let loadingTimer: ReturnType<typeof setTimeout>;
+
+	const handleJoinTeam: SubmitFunction = async () => {
+		loadingTimer = setTimeout(() => {
+			isLoading = true;
+		}, 350);
+		isSubmitting = true;
+		return async ({ result }) => {
+			if (result.type === 'error') {
+				toast.error(result.error.message);
+			} else {
+				await applyAction(result);
+			}
+			clearTimeout(loadingTimer);
+			isLoading = false;
+			isSubmitting = false;
+		};
+	};
+
+	onDestroy(() => {
+		clearTimeout(loadingTimer);
+	});
 </script>
 
 <Container class="flex h-dvh items-center justify-center py-6">
-	{#if data.siteName && data.inviteLinkId && data.inviteLinkActive && !data.isMember}
-		<PageHeader.Root>
-			<PageHeader.Title>Join the team for {data.siteName}</PageHeader.Title>
-		</PageHeader.Root>
-		{#if data.isAuthenticated}
-			Is logged in
-		{:else}
-			Is not logged in
-		{/if}
-	{:else if data.inviteLinkId && data.inviteLinkActive !== true}
-    <PageHeader.Root>
-        <PageHeader.Title>This invite link is currently not active</PageHeader.Title>
-    </PageHeader.Root>
-    {:else}
-		<PageHeader.Root>
-			<PageHeader.Title>Another case</PageHeader.Title>
-		</PageHeader.Root>
-	{/if}
+	<Card.Root class="w-full max-w-sm">
+		<Card.Header>
+			<Card.Title>Join {data.siteName}</Card.Title>
+			<Card.Description>Anyone with this link can join {data.siteName}.</Card.Description>
+		</Card.Header>
+
+		<Card.Footer
+			class="flex-col items-stretch justify-between gap-3 lg:flex-row-reverse lg:items-center"
+		>
+			<form class="contents" method="POST" action="?/join-team" use:enhance={handleJoinTeam}>
+				<Button type="submit" disabled={isSubmitting}
+					>{#if isLoading}<Loader2Icon class="mr-2 size-4 animate-spin"></Loader2Icon>{/if}Join team</Button
+				>
+			</form>
+			<Button variant="outline" href="/">Go back</Button>
+		</Card.Footer>
+	</Card.Root>
 </Container>
