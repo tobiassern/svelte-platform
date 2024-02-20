@@ -1,5 +1,4 @@
 import type { PageServerLoad } from "./$types"
-import { PUBLIC_HOST } from "$env/static/public"
 import { BYPASS_TOKEN } from '$env/static/private';
 
 export const config = {

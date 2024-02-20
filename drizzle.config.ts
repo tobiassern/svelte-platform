@@ -1,5 +1,4 @@
 import dotenv from 'dotenv';
-// dotenv.config({ path: '.env.development.local' });
 dotenv.config();
 
 import type { Config } from "drizzle-kit";
@@ -8,6 +7,6 @@ export default {
     out: "./drizzle",
     driver: "pg",
     dbCredentials: {
-        connectionString: process.env.POSTGRESS_DRIZZLE_URL ?? ""
+        connectionString: process.env.POSTGRES_URL_NON_POOLING ?? ""
     }
 } satisfies Config;

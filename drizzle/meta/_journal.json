@@ -246,6 +246,13 @@
       "when": 1708433083846,
       "tag": "0034_lucky_talisman",
       "breakpoints": true
+    },
+    {
+      "idx": 35,
+      "version": "5",
+      "when": 1708454510626,
+      "tag": "0035_parallel_kang",
+      "breakpoints": true
     }
   ]
 }

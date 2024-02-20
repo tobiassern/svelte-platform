@@ -44,6 +44,7 @@ export const sites_table = pgTable("sites", {
     }).defaultNow(),
     name: text("name").notNull(),
     description: text("description"),
+    cover_image_url: text("cover_image_url"),
     subdomain: text("subdomain").unique().notNull(),
     custom_domain: text("custom_domain").unique(),
     invite_link_active: boolean('invite_link_active'),

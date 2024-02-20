@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "vite dev",
+		"dev": "vite dev --port 3001 --open http://platform.localhost:3001",
 		"build": "vite build",
 		"preview": "vite preview",
 		"test": "npm run test:integration && npm run test:unit",
@@ -57,6 +57,7 @@
 		"@sindresorhus/slugify": "^2.2.1",
 		"@sveltejs/adapter-vercel": "^5.1.0",
 		"@vercel/analytics": "^1.2.1",
+		"@vercel/blob": "^0.22.0",
 		"@vercel/postgres": "^0.7.2",
 		"arctic": "^1.1.4",
 		"bits-ui": "^0.17.0",

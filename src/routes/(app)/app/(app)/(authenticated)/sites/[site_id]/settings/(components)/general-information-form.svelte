@@ -13,10 +13,10 @@
 	export let sForm: SuperValidated<Infer<typeof update_site_general_information_schema>>;
 
 	const form = superForm(sForm, {
-		resetForm: false
+
 	});
 
-	const { enhance, submitting, delayed } = form;
+	const { enhance, submitting, delayed, form: frm } = form;
 </script>
 
 <form method="POST" action="?/update-general-information" use:enhance>
