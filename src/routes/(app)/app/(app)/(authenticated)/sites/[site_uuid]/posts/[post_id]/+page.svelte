@@ -49,7 +49,7 @@
 		// Workaround to enable autofocus on iOS Safari.
 		const autoFocusTimer = setTimeout(() => {
 			if (!$form.title) titleInputEl.focus();
-		}, 150);
+		}, 350);
 
 		return () => {
 			clearTimeout(autoFocusTimer);
