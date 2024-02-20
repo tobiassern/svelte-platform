@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
 	import { page } from '$app/stores';
 	import { PUBLIC_HOST } from '$env/static/public';
 	import { GithubIcon } from 'lucide-svelte';
@@ -197,4 +197,5 @@
 			</dl>
 		</div>
 	</div>
-</div>
+</div> -->
+<p>SIIIITEEEE</p>
