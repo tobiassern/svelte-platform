@@ -46,7 +46,13 @@
 	let slugInputEl: HTMLInputElement;
 
 	onMount(() => {
-		if (!$form.title) titleInputEl.focus();
+		const autoFocusTimer = setTimeout(() => {
+			if (!$form.title) titleInputEl.focus();
+		}, 0);
+
+		return () => {
+			clearTimeout(autoFocusTimer);
+		};
 	});
 </script>
 
