@@ -40,8 +40,8 @@
 <Container class="flex h-dvh items-center justify-center py-6">
 	<Card.Root class="w-full max-w-sm">
 		<Card.Header>
-			<Card.Title>Join {data.siteName}</Card.Title>
-			<Card.Description>Anyone with this link can join {data.siteName}.</Card.Description>
+			<Card.Title>Join {data.site_name}</Card.Title>
+			<Card.Description>Anyone with this link can join {data.site_name}.</Card.Description>
 		</Card.Header>
 
 		<Card.Footer
