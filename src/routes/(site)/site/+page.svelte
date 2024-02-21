@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 	import { PUBLIC_HOST } from '$env/static/public';
 	import { GithubIcon } from 'lucide-svelte';
-	import { vercel_deploy_button_url } from '$lib/utils';
+	import { vercel_deploy_button_url, github_repo_url } from '$lib/utils';
 </script>
 
 <svelte:head>
@@ -22,7 +22,7 @@
 				</a>
 			</div>
 			<div class="flex flex-1 items-center justify-end gap-6">
-				<a href="https://github.com/tobiassern/svelte-platform"><GithubIcon class="size-5" /></a>
+				<a href="{github_repo_url}"><GithubIcon class="size-5" /></a>
 				<a
 					href="{$page.url.protocol}//app.{PUBLIC_HOST}"
 					class="text-sm font-semibold leading-6 text-gray-900"

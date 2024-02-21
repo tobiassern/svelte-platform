@@ -51,6 +51,7 @@ export const update_subdomain_schema = z.object({
 export const update_post_schema = z
 	.object({
 		title: z.string(),
+		description: z.string(),
 		content_html: z.string(),
 		content_json: z.object({}).passthrough(),
 		slug: z

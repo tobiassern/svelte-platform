@@ -4,7 +4,7 @@ import { cubicOut } from 'svelte/easing';
 import type { TransitionConfig } from 'svelte/transition';
 
 export const vercel_deploy_button_url = 'https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ftobiassern%2Fsvelte-platform&env=POSTGRES_URL_NON_POOLING,POSTGRES_URL,GITHUB_CLIENT_ID,GITHUB_CLIENT_SECRET,PUBLIC_HOST,BLOB_READ_WRITE_TOKEN,BYPASS_TOKEN&project-name=svelte-platforms&repository-name=svelte-platforms'
-
+export const github_repo_url = 'https://github.com/tobiassern/svelte-platform';
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }

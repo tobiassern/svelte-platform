@@ -23,6 +23,15 @@ dependencies:
   '@tiptap/core':
     specifier: ^2.2.3
     version: 2.2.3(@tiptap/pm@2.2.3)
+  '@tiptap/extension-bubble-menu':
+    specifier: ^2.2.3
+    version: 2.2.3(@tiptap/core@2.2.3)(@tiptap/pm@2.2.3)
+  '@tiptap/extension-floating-menu':
+    specifier: ^2.2.3
+    version: 2.2.3(@tiptap/core@2.2.3)(@tiptap/pm@2.2.3)
+  '@tiptap/extension-placeholder':
+    specifier: ^2.2.3
+    version: 2.2.3(@tiptap/core@2.2.3)(@tiptap/pm@2.2.3)
   '@tiptap/pm':
     specifier: ^2.2.3
     version: 2.2.3
@@ -1502,6 +1511,10 @@ packages:
   /@polka/url@1.0.0-next.24:
     resolution: {integrity: sha512-2LuNTFBIO0m7kKIQvvPHN6UE63VjpmL9rnEEaOOaiSPbZK+zUOYIzBAWcED+3XYzhYsd/0mD57VdxAEqqV52CQ==}
 
+  /@popperjs/core@2.11.8:
+    resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
+    dev: false
+
   /@remirror/core-constants@2.0.2:
     resolution: {integrity: sha512-dyHY+sMF0ihPus3O27ODd4+agdHMEmuRdyiZJ2CCWjPV5UFmn17ZbElvk6WOGVE4rdCJKZQCrPV2BcikOMLUGQ==}
     dev: false
@@ -1778,6 +1791,17 @@ packages:
       '@tiptap/core': 2.2.3(@tiptap/pm@2.2.3)
     dev: false
 
+  /@tiptap/extension-bubble-menu@2.2.3(@tiptap/core@2.2.3)(@tiptap/pm@2.2.3):
+    resolution: {integrity: sha512-6ybColxLznGilzOY/yk3KcpV4JQy+QDDW6Za6zWV6OEs9D8I8VUeMAS77isMMc1dffvHfmgZpVZm/lsva8UuCw==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0
+      '@tiptap/pm': ^2.0.0
+    dependencies:
+      '@tiptap/core': 2.2.3(@tiptap/pm@2.2.3)
+      '@tiptap/pm': 2.2.3
+      tippy.js: 6.3.7
+    dev: false
+
   /@tiptap/extension-bullet-list@2.2.3(@tiptap/core@2.2.3):
     resolution: {integrity: sha512-BpYg1pIfLE+2LTC90ts53deEWGSmAojhM/jJ84U19qfbfXt/7/KHrZJ4SAMxJSW3pLpy0bIq2XuOuvppOYVR5g==}
     peerDependencies:
@@ -1820,6 +1844,17 @@ packages:
     dependencies:
       '@tiptap/core': 2.2.3(@tiptap/pm@2.2.3)
       '@tiptap/pm': 2.2.3
+    dev: false
+
+  /@tiptap/extension-floating-menu@2.2.3(@tiptap/core@2.2.3)(@tiptap/pm@2.2.3):
+    resolution: {integrity: sha512-ZeQGmIFNImhu/zzn//Xzupwa82j2vIwiMoviX2zd+2DutoFnm4qRIAU6qpjzV+ZOSHAq3aBMGnYwEAY6vl4f3g==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0
+      '@tiptap/pm': ^2.0.0
+    dependencies:
+      '@tiptap/core': 2.2.3(@tiptap/pm@2.2.3)
+      '@tiptap/pm': 2.2.3
+      tippy.js: 6.3.7
     dev: false
 
   /@tiptap/extension-gapcursor@2.2.3(@tiptap/core@2.2.3)(@tiptap/pm@2.2.3):
@@ -1898,6 +1933,16 @@ packages:
       '@tiptap/core': ^2.0.0
     dependencies:
       '@tiptap/core': 2.2.3(@tiptap/pm@2.2.3)
+    dev: false
+
+  /@tiptap/extension-placeholder@2.2.3(@tiptap/core@2.2.3)(@tiptap/pm@2.2.3):
+    resolution: {integrity: sha512-Kc+9a/uACY9XBT0uB/qFVpIHm8MzVr0uWA7MCjwDcMneANRLsXEBzWBzyHxRFoNRECfocivV9hQIhuO4i09c9A==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0
+      '@tiptap/pm': ^2.0.0
+    dependencies:
+      '@tiptap/core': 2.2.3(@tiptap/pm@2.2.3)
+      '@tiptap/pm': 2.2.3
     dev: false
 
   /@tiptap/extension-strike@2.2.3(@tiptap/core@2.2.3):
@@ -5332,6 +5377,12 @@ packages:
     resolution: {integrity: sha512-d2eda04AN/cPOR89F7Xv5bK/jrQEhmcLFe6HFldoeO9AJtps+fqEnh486vnT/8y4bw38pSyxDcTCAq+Ks2aJTg==}
     engines: {node: '>=14.0.0'}
     dev: true
+
+  /tippy.js@6.3.7:
+    resolution: {integrity: sha512-E1d3oP2emgJ9dRQZdf3Kkn0qJgI6ZLpyS5z6ZkY1DF3kaQaBsGZsndEpHwx+eC+tYM41HaSNvNtLx8tU57FzTQ==}
+    dependencies:
+      '@popperjs/core': 2.11.8
+    dev: false
 
   /to-regex-range@5.0.1:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}

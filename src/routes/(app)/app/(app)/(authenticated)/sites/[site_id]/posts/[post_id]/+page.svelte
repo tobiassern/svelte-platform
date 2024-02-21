@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import * as Card from '$lib/components/ui/card';
 	import { Button } from '$lib/components/ui/button';
 	import { Separator } from '$lib/components/ui/separator';
@@ -14,6 +15,8 @@
 	import { onMount } from 'svelte';
 	import PublishPostForm from './(components)/publish-post-form.svelte';
 	import { TiptapEditor } from '$lib/components/tiptap-editor';
+	import { PUBLIC_HOST } from '$env/static/public';
+	import { CopyIcon } from 'lucide-svelte';
 
 	export let data;
 
@@ -52,52 +55,106 @@
 		const target = event.target as HTMLInputElement;
 		$form.slug = slugify(target.value);
 	};
+
+	const siteUrl = `${$page.url.protocol}//${data.site.subdomain}.${PUBLIC_HOST}`;
 </script>
 
-<Card.Root>
-	<form id="update-post-form" method="POST" action="?/update-post" use:enhance>
+<form id="update-post-form" method="POST" action="?/update-post" use:enhance />
+
+<div class="post-editor-layout">
+	<Card.Root style="grid-area: header;">
 		<Card.Header>
-			<input
-				name="title"
-				type="text"
-				class="bg-transparent text-4xl font-bold tracking-tight text-foreground outline-none"
-				placeholder="No title"
-				autocorrect="off"
-				spellcheck="false"
-				bind:value={$form.title}
-				on:change={onChangeTitle}
-				autofocus={true}
-			/>
-			<label
-				class="flex items-center rounded bg-muted px-2 py-1 transition hover:bg-muted/80"
-				for="slug"
-			>
-				<span>http://site.platform.sernhe.dev/</span>
-				<input
-					id="slug"
-					name="slug"
+			<Card.Title
+				><input
+					form="update-post-form"
+					name="title"
 					type="text"
-					class="w-full bg-transparent outline-none"
-					bind:value={$form.slug}
-					on:change={onChangeSlug}
-				/>
-			</label>
+					class="w-full bg-transparent text-foreground outline-none placeholder:italic"
+					placeholder="Edit title..."
+					autocorrect="off"
+					spellcheck="false"
+					bind:value={$form.title}
+					on:change={onChangeTitle}
+				/></Card.Title
+			>
+			<Card.Description
+				><textarea
+					rows="4"
+					form="update-post-form"
+					class="w-full bg-background outline-none placeholder:italic"
+					style="field-sizing: content;"
+					bind:value={$form.description}
+					placeholder="Edit description..."
+				></textarea></Card.Description
+			>
+			<div class="flex items-center justify-between gap-3">
+				<label
+					for="slug"
+					class="flex flex-1 rounded-md bg-muted px-2 py-1 text-sm text-muted-foreground transition hover:bg-muted/50"
+					>{siteUrl}/<input
+						on:change={onChangeSlug}
+						id="slug"
+						form="update-post-form"
+						class="bg-transparent px-0 outline-none"
+						name="slug"
+						value={$form.slug}
+					/>
+				</label>
+				<Button
+					size="icon"
+					variant="ghost"
+					on:click={() => {
+						navigator.clipboard.writeText(`${siteUrl}/${$form.slug}`);
+					}}><CopyIcon class="size-4" /></Button
+				>
+			</div>
 		</Card.Header>
-		<Card.Content>
-			<Separator class="mb-6"></Separator>
-			<TiptapEditor bind:this={tiptapEditorEl} content={$form.content_json} />
-			<Separator class="mt-6"></Separator>
-		</Card.Content>
-	</form>
-	<Card.Footer class="justify-between">
-		<Button type="submit" form="update-post-form" disabled={$submitting}>
-			{#if $delayed}
-				<div use:autoAnimate>
-					<Loader2Icon class="mr-2 size-4 animate-spin"></Loader2Icon>
+	</Card.Root>
+
+	<Card.Root style="grid-area: content;">
+		<TiptapEditor bind:this={tiptapEditorEl} content={$form.content_json} />
+	</Card.Root>
+	<div style="grid-area: sidebar;">
+		<Card.Root>
+			<Card.Content class="pt-6">
+				<img
+					class="aspect-video rounded-md object-cover object-center"
+					src="https://images.unsplash.com/photo-1708342858256-4a27f1d0aaee?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+					alt="Cover"
+				/>
+				<Separator class="my-6"></Separator>
+				<p class="text-sm text-muted-foreground">
+					Created: {new Date(data.post.created_at).toLocaleString()}
+				</p>
+				<Separator class="my-6"></Separator>
+				<div class="flex flex-col justify-between gap-3 lg:flex-row-reverse">
+					<Button type="submit" form="update-post-form" disabled={$submitting}>
+						{#if $delayed}
+							<div use:autoAnimate>
+								<Loader2Icon class="mr-2 size-4 animate-spin"></Loader2Icon>
+							</div>
+						{/if}
+						<div class="flex-1">Update</div>
+					</Button>
+					<PublishPostForm sForm={data.publish_form} />
 				</div>
-			{/if}
-			<div class="flex-1">Update</div>
-		</Button>
-		<PublishPostForm sForm={data.publish_form} />
-	</Card.Footer>
-</Card.Root>
+			</Card.Content>
+		</Card.Root>
+	</div>
+</div>
+
+<style lang="postcss">
+	.post-editor-layout {
+		@apply flex flex-col gap-6;
+	}
+	@media (min-width: 1024px) {
+		.post-editor-layout {
+			@apply grid;
+			grid-template-rows: auto 1fr;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+			grid-template-areas:
+				'header header header header header sidebar sidebar sidebar'
+				'content content content content content sidebar sidebar sidebar';
+		}
+	}
+</style>

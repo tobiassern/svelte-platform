@@ -21,7 +21,7 @@
 	const { enhance, form, delayed, submitting } = frm;
 </script>
 
-<form action="?/publish-post" method="POST" use:enhance>
+<form action="?/publish-post" method="POST" use:enhance class="contents">
 	<input name="published" value={!$form.published} hidden />
 	<Button variant="outline" type="submit" disabled={$submitting}
 		>{#if $delayed}<Loader2Icon class="mr-2 size-4 animate-spin" />{/if}{$form.published
