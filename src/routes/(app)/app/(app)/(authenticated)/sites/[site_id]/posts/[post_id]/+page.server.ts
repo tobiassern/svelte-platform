@@ -4,9 +4,9 @@ import { posts } from '$lib/schemas/db/schema';
 import { eq, and } from 'drizzle-orm';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import { update_post_schema } from '$lib/schemas/form';
+import { update_post_schema, publish_post_schema } from '$lib/schemas/form';
 import { error, fail } from '@sveltejs/kit';
-import type {} from 'drizzle-orm/vercel-postgres';
+import type { } from 'drizzle-orm/vercel-postgres';
 
 export const load: PageServerLoad = async (event) => {
 	const site = await isSiteMember(event);
@@ -19,11 +19,13 @@ export const load: PageServerLoad = async (event) => {
 	}
 
 	const form = await superValidate(post, zod(update_post_schema));
+	const publish_form = await superValidate(post, zod(publish_post_schema));
 
 	return {
 		site,
 		post,
-		form
+		form,
+		publish_form
 	};
 };
 
@@ -49,5 +51,18 @@ export const actions: Actions = {
 		}
 
 		return { form };
+	},
+	'publish-post': async (event) => {
+		const site = await isSiteMember(event);
+
+		const publish_form = await superValidate(event.request, zod(publish_post_schema));
+
+		if (!publish_form.valid) {
+			return fail(400, { publish_form });
+		}
+
+		await event.locals.db.update(posts).set(publish_form.data).where(and(eq(posts.site_id, site.id), eq(posts.id, event.params.post_id)))
+
+		return { publish_form }
 	}
 };

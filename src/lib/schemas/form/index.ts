@@ -51,12 +51,12 @@ export const update_subdomain_schema = z.object({
 export const update_post_schema = z
 	.object({
 		title: z.string(),
-		content: z.string(),
+		content_html: z.string(),
+		content_json: z.object({}).passthrough(),
 		slug: z
 			.string()
 			.nullable()
-			.transform((val) => (!val ? null : val)),
-		published: z.boolean()
+			.transform((val) => (!val ? null : val))
 	})
 	.transform((data) => {
 		if (data.title && !data.slug) {
@@ -65,5 +65,9 @@ export const update_post_schema = z
 
 		return data;
 	});
+
+export const publish_post_schema = z.object({
+	published: z.boolean()
+})
 
 export type ActivateInviteLink = typeof activate_invite_link_schema;

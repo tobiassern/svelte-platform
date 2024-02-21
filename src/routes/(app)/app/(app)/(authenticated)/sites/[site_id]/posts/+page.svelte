@@ -8,7 +8,8 @@
 	import { enhance } from '$app/forms';
 	import type { SubmitFunction } from './$types.js';
 	import { onDestroy } from 'svelte';
-	import { applyAction } from '$app/forms';
+	import { Badge } from '$lib/components/ui/badge';
+
 	export let data;
 
 	let isLoading = false;
@@ -51,22 +52,27 @@
 <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 	{#each data.posts as post}
 		<Card.Root class="overflow-hidden">
-			<img
-				src="https://upload.wikimedia.org/wikipedia/commons/5/5a/No_image_available_500_x_500.svg"
-				alt="Post main"
-				class="aspect-video bg-muted object-cover object-center"
-			/>
+			<div class="relative aspect-video bg-muted object-cover object-center">
+				{#if !post.published}
+					<Badge class="absolute right-3 top-3">Unpublished</Badge>
+				{/if}
+				<img
+					src="https://upload.wikimedia.org/wikipedia/commons/5/5a/No_image_available_500_x_500.svg"
+					alt="Post main"
+					class="h-full w-full object-cover object-center"
+				/>
+			</div>
 			<Card.Header>
 				<Card.Title class={!post.title ? 'italic text-muted-foreground' : ''}
 					>{post.title ?? 'No title'}</Card.Title
 				>
 				<Card.Description
-					class={cn('line-clamp-3', !post.content && 'italic text-muted-foreground')}
-					>{post.content ?? 'No content'}</Card.Description
+					class={cn('line-clamp-3', !post.description && 'italic text-muted-foreground')}
+					>{post.description ?? 'No description'}</Card.Description
 				>
 			</Card.Header>
 			<Card.Footer>
-				<Button href="/sites/{data.site.uuid}/posts/{post.id}">Edit</Button>
+				<Button href="/sites/{data.site.id}/posts/{post.id}">Edit</Button>
 			</Card.Footer>
 		</Card.Root>
 	{/each}

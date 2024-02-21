@@ -63,7 +63,7 @@
 					<img
 						bind:this={coverImagePreviewEl}
 						src={imgSrc}
-						class="aspect-video object-cover object-center transition group-hover/coverImage:scale-110"
+						class="h-full w-full object-cover object-center transition group-hover/coverImage:scale-110"
 						alt="Cover"
 						on:change={handleInputChange}
 					/>
@@ -74,7 +74,7 @@
 					</div>
 				{:else}
 					<div
-						class="flex aspect-video items-center justify-center p-3 text-sm text-muted-foreground"
+						class="flex aspect-video h-full w-full items-center justify-center p-3 text-sm text-muted-foreground"
 					>
 						Upload cover image
 					</div>

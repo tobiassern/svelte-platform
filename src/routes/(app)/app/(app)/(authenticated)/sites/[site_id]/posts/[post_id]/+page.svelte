@@ -12,12 +12,23 @@
 	import { scale } from 'svelte/transition';
 	import autoAnimate from '@formkit/auto-animate';
 	import { onMount } from 'svelte';
+	import PublishPostForm from './(components)/publish-post-form.svelte';
+	import { TiptapEditor } from '$lib/components/tiptap-editor';
 
 	export let data;
 
+	let tiptapEditorEl: TiptapEditor;
+
 	const { form, errors, enhance, submitting, delayed } = superForm(data.form, {
+		dataType: 'json',
 		resetForm: false,
 		validators: zodClient(update_post_schema),
+		onSubmit: (event) => {
+			const content_html = tiptapEditorEl.getHtml();
+			const content_json = tiptapEditorEl.getJson();
+			$form.content_html = content_html;
+			$form.content_json = content_json;
+		},
 		onError: (event) => {
 			console.log(event);
 			if (event.result.type === 'error') {
@@ -41,27 +52,12 @@
 		const target = event.target as HTMLInputElement;
 		$form.slug = slugify(target.value);
 	};
-
-	let titleInputEl: HTMLInputElement;
-	let slugInputEl: HTMLInputElement;
-
-	onMount(() => {
-		// Workaround to enable autofocus on iOS Safari.
-		const autoFocusTimer = setTimeout(() => {
-			if (!$form.title) titleInputEl.focus();
-		}, 350);
-
-		return () => {
-			clearTimeout(autoFocusTimer);
-		};
-	});
 </script>
 
-<form method="POST" action="?/update-post" use:enhance>
-	<Card.Root>
+<Card.Root>
+	<form id="update-post-form" method="POST" action="?/update-post" use:enhance>
 		<Card.Header>
 			<input
-				bind:this={titleInputEl}
 				name="title"
 				type="text"
 				class="bg-transparent text-4xl font-bold tracking-tight text-foreground outline-none"
@@ -70,6 +66,7 @@
 				spellcheck="false"
 				bind:value={$form.title}
 				on:change={onChangeTitle}
+				autofocus={true}
 			/>
 			<label
 				class="flex items-center rounded bg-muted px-2 py-1 transition hover:bg-muted/80"
@@ -77,7 +74,6 @@
 			>
 				<span>http://site.platform.sernhe.dev/</span>
 				<input
-					bind:this={slugInputEl}
 					id="slug"
 					name="slug"
 					type="text"
@@ -89,19 +85,19 @@
 		</Card.Header>
 		<Card.Content>
 			<Separator class="mb-6"></Separator>
-			<div>jek</div>
+			<TiptapEditor bind:this={tiptapEditorEl} content={$form.content_json} />
 			<Separator class="mt-6"></Separator>
 		</Card.Content>
-
-		<Card.Footer>
-			<Button type="submit" disabled={$submitting}>
-				{#if $delayed}
-					<div use:autoAnimate>
-						<Loader2Icon class="mr-2 size-4 animate-spin"></Loader2Icon>
-					</div>
-				{/if}
-				<div class="flex-1">Update</div>
-			</Button>
-		</Card.Footer>
-	</Card.Root>
-</form>
+	</form>
+	<Card.Footer class="justify-between">
+		<Button type="submit" form="update-post-form" disabled={$submitting}>
+			{#if $delayed}
+				<div use:autoAnimate>
+					<Loader2Icon class="mr-2 size-4 animate-spin"></Loader2Icon>
+				</div>
+			{/if}
+			<div class="flex-1">Update</div>
+		</Button>
+		<PublishPostForm sForm={data.publish_form} />
+	</Card.Footer>
+</Card.Root>

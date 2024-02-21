@@ -1,4 +1,8 @@
 import type { PageServerLoad } from './$types';
+import { PUBLIC_HOST } from '$env/static/public';
+import { error } from '@sveltejs/kit';
+import { sites_table, posts } from '$lib/schemas/db/schema';
+import { eq, and } from 'drizzle-orm';
 // import { BYPASS_TOKEN } from '$env/static/private';
 
 // export const config = {
@@ -20,5 +24,37 @@ import type { PageServerLoad } from './$types';
 // };
 
 export const load: PageServerLoad = async (event) => {
-	return {};
+
+	const subdomain = event.url.host.replace(`.${PUBLIC_HOST}`, '');
+
+	const result = await event.locals.db.query.sites_table.findFirst({
+		where: eq(sites_table.subdomain, subdomain),
+		columns: {
+			name: true,
+			description: true,
+			cover_image_url: true,
+			subdomain: true,
+			custom_domain: true
+		},
+		with: {
+			posts: {
+				limit: 1,
+				columns: {
+					title: true,
+					description: true,
+					slug: true,
+					created_at: true,
+					content_html: true
+				},
+				where: and(eq(posts.published, true), eq(posts.slug, event.params.slug))
+			}
+		}
+	});
+
+	if (!result || !result.posts.length) error(404, "Not found");
+
+	const { posts: postsData, ...site } = result;
+	const post = postsData[0];
+	return { site, post };
+
 };
