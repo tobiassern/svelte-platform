@@ -24,7 +24,6 @@ import { eq, and } from 'drizzle-orm';
 // };
 
 export const load: PageServerLoad = async (event) => {
-
 	const subdomain = event.url.host.replace(`.${PUBLIC_HOST}`, '');
 
 	const result = await event.locals.db.query.sites_table.findFirst({
@@ -51,10 +50,9 @@ export const load: PageServerLoad = async (event) => {
 		}
 	});
 
-	if (!result || !result.posts.length) error(404, "Not found");
+	if (!result || !result.posts.length) error(404, 'Not found');
 
 	const { posts: postsData, ...site } = result;
 	const post = postsData[0];
 	return { site, post };
-
 };

@@ -13,7 +13,7 @@
 		TriangleIcon
 	} from 'lucide-svelte';
 	import { PUBLIC_HOST } from '$env/static/public';
-	import { vercel_deploy_button_url , github_repo_url} from '$lib/utils';
+	import { vercel_deploy_button_url, github_repo_url } from '$lib/utils';
 
 	let className: string | undefined | null = undefined;
 	export let items: { path: string; title: string; icon: typeof SailboatIcon }[];

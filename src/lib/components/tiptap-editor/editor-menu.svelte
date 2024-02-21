@@ -8,6 +8,7 @@
 	import StrikethroughIcon from 'lucide-svelte/icons/strikethrough';
 	import ListOrderedIcon from 'lucide-svelte/icons/list-ordered';
 	import ListIcon from 'lucide-svelte/icons/list';
+	import { CodeIcon } from 'lucide-svelte';
 	import type { Editor } from '@tiptap/core';
 	import { cn } from '$lib/utils';
 
@@ -17,6 +18,39 @@
 	export { className as class };
 
 	let isNodeStyleOpen = false;
+
+	const toggles: { isActive: string; action: () => void; icon: typeof BoldIcon }[] = [
+		{
+			isActive: 'bold',
+			action: () => editor.chain().focus().toggleItalic().run(),
+			icon: BoldIcon
+		},
+		{
+			isActive: 'italic',
+			action: () => editor.chain().focus().toggleItalic().run(),
+			icon: ItalicIcon
+		},
+		{
+			isActive: 'strike',
+			action: () => editor.chain().focus().toggleStrike().run(),
+			icon: StrikethroughIcon
+		},
+		{
+			isActive: 'orderedList',
+			action: () => editor.chain().focus().toggleOrderedList().run(),
+			icon: ListOrderedIcon
+		},
+		{
+			isActive: 'bulletList',
+			action: () => editor.chain().focus().toggleBulletList().run(),
+			icon: ListIcon
+		},
+		{
+			isActive: 'codeBlock',
+			action: () => editor.chain().focus().toggleCodeBlock().run(),
+			icon: CodeIcon
+		}
+	];
 </script>
 
 <div
@@ -42,7 +76,11 @@
 				{/if}
 			</Button>
 		</Popover.Trigger>
-		<Popover.Content class="z-50 flex flex-col space-y-0.5 px-2 py-1" align="start" sameWidth={true}>
+		<Popover.Content
+			class="z-50 flex flex-col space-y-0.5 px-2 py-1"
+			align="start"
+			sameWidth={true}
+		>
 			<Button
 				type="button"
 				size="sm"
@@ -82,61 +120,15 @@
 		</Popover.Content>
 	</Popover.Root>
 	<Separator orientation="vertical" class="mx-1 h-6" />
-	<Toggle
-		size="sm"
-		pressed={editor?.isActive('bold')}
-		onPressedChange={(val) => {
-			if (val) {
-				editor.chain().focus().setBold().run();
-			} else {
-				editor.chain().focus().unsetBold().run();
-			}
-		}}
-	>
-		<BoldIcon class="h-4 w-4" />
-	</Toggle>
-	<Toggle
-		size="sm"
-		pressed={editor?.isActive('italic')}
-		onPressedChange={(val) => {
-			if (val) {
-				editor.chain().focus().setItalic().run();
-			} else {
-				editor.chain().focus().unsetItalic().run();
-			}
-		}}
-	>
-		<ItalicIcon class="h-4 w-4" />
-	</Toggle>
-	<Toggle
-		size="sm"
-		pressed={editor?.isActive('strike')}
-		onPressedChange={(val) => {
-			if (val) {
-				editor.chain().focus().setStrike().run();
-			} else {
-				editor.chain().focus().unsetStrike().run();
-			}
-		}}
-	>
-		<StrikethroughIcon class="h-4 w-4" />
-	</Toggle>
-	<Toggle
-		size="sm"
-		pressed={editor?.isActive('orderedList')}
-		onPressedChange={() => {
-			editor.chain().focus().toggleOrderedList().run();
-		}}
-	>
-		<ListOrderedIcon class="h-4 w-4" />
-	</Toggle>
-	<Toggle
-		size="sm"
-		pressed={editor?.isActive('bulletList')}
-		onPressedChange={() => {
-			editor.chain().focus().toggleBulletList().run();
-		}}
-	>
-		<ListIcon class="h-4 w-4" />
-	</Toggle>
+	<div class="flex gap-0.5">
+		{#each toggles as toggleItem}
+			<Toggle
+				size="sm"
+				pressed={editor?.isActive(toggleItem.isActive)}
+				onPressedChange={toggleItem.action}
+			>
+				<svelte:component this={toggleItem.icon} class="h-4 w-4" />
+			</Toggle>
+		{/each}
+	</div>
 </div>

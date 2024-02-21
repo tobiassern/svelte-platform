@@ -77,7 +77,7 @@
 			>
 			<Card.Description
 				><textarea
-					rows="4"
+					rows="3"
 					form="update-post-form"
 					class="w-full bg-background outline-none placeholder:italic"
 					style="field-sizing: content;"
@@ -105,14 +105,17 @@
 						navigator.clipboard.writeText(`${siteUrl}/${data.post.slug}`);
 					}}><CopyIcon class="size-4" /></Button
 				>
-				<Button size="icon" variant="ghost" href="{siteUrl}/{data.post.slug}"><ExternalLinkIcon class="size-4" /></Button>
+				<Button size="icon" variant="ghost" href="{siteUrl}/{data.post.slug}"
+					><ExternalLinkIcon class="size-4" /></Button
+				>
 			</div>
 		</Card.Header>
 	</Card.Root>
-
-	<Card.Root style="grid-area: content;">
-		<TiptapEditor bind:this={tiptapEditorEl} content={$form.content_json} />
-	</Card.Root>
+	<div style="grid-area: content;">
+		<Card.Root>
+			<TiptapEditor bind:this={tiptapEditorEl} content={$form.content_json} />
+		</Card.Root>
+	</div>
 	<div style="grid-area: sidebar;">
 		<Card.Root>
 			<Card.Content class="pt-6">

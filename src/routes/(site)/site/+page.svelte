@@ -22,7 +22,7 @@
 				</a>
 			</div>
 			<div class="flex flex-1 items-center justify-end gap-6">
-				<a href="{github_repo_url}"><GithubIcon class="size-5" /></a>
+				<a href={github_repo_url}><GithubIcon class="size-5" /></a>
 				<a
 					href="{$page.url.protocol}//app.{PUBLIC_HOST}"
 					class="text-sm font-semibold leading-6 text-gray-900"
@@ -51,8 +51,7 @@
 					The all-in-one starter kit for multi-tenant applications.
 				</p>
 				<div class="mt-10 flex items-center justify-center gap-x-6">
-					<a
-						href="{vercel_deploy_button_url}"
+					<a href={vercel_deploy_button_url}
 						><img src="https://vercel.com/button" alt="Deploy with Vercel" /></a
 					>
 					<a

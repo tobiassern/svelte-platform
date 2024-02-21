@@ -69,6 +69,6 @@ export const update_post_schema = z
 
 export const publish_post_schema = z.object({
 	published: z.boolean()
-})
+});
 
 export type ActivateInviteLink = typeof activate_invite_link_schema;

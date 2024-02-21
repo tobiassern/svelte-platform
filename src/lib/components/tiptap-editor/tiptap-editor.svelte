@@ -14,7 +14,7 @@
 		editor = new Editor({
 			element: element,
 			extensions: [StarterKit, Placeholder.configure({ placeholder: 'Edit content...' })],
-			content: null,
+			content: content,
 			editorProps: {
 				attributes: {
 					class: 'prose dark:prose-invert prose-sm sm:prose-base m-5 focus:outline-none'

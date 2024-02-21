@@ -24,8 +24,6 @@ import { error } from '@sveltejs/kit';
 // };
 
 export const load: PageServerLoad = async (event) => {
-
-
 	const subdomain = event.url.host.replace(`.${PUBLIC_HOST}`, '');
 
 	const site = await event.locals.db.query.sites_table.findFirst({
