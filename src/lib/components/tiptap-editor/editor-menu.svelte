@@ -11,6 +11,8 @@
 	import { CodeIcon } from 'lucide-svelte';
 	import type { Editor } from '@tiptap/core';
 	import { cn } from '$lib/utils';
+	import { Shortcut } from '$lib/components/ui/command';
+	import * as Tooltip from '$lib/components/ui/tooltip';
 
 	export let element: HTMLElement;
 	export let editor: Editor;
@@ -19,38 +21,59 @@
 
 	let isNodeStyleOpen = false;
 
-	const toggles: { isActive: string; action: () => void; icon: typeof BoldIcon }[] = [
+	const toggles: {
+		isActive: string;
+		action: () => void;
+		icon: typeof BoldIcon;
+		label: string;
+		shortcut?: { win?: string; mac?: string };
+	}[] = [
 		{
 			isActive: 'bold',
 			action: () => editor.chain().focus().toggleItalic().run(),
-			icon: BoldIcon
+			icon: BoldIcon,
+			label: 'Bold',
+			shortcut: { win: 'Ctrl B', mac: '⌘B' }
 		},
 		{
 			isActive: 'italic',
 			action: () => editor.chain().focus().toggleItalic().run(),
-			icon: ItalicIcon
+			icon: ItalicIcon,
+			label: 'Italic',
+			shortcut: { win: 'Ctrl I', mac: '⌘I' }
 		},
 		{
 			isActive: 'strike',
 			action: () => editor.chain().focus().toggleStrike().run(),
-			icon: StrikethroughIcon
+			icon: StrikethroughIcon,
+			label: 'Strikethrough',
+			shortcut: {win: 'Ctrl ⇧ S', mac: '⌘⇧S'}
+
 		},
 		{
 			isActive: 'orderedList',
 			action: () => editor.chain().focus().toggleOrderedList().run(),
-			icon: ListOrderedIcon
+			icon: ListOrderedIcon,
+			label: 'Ordered list',
+			shortcut: {win: 'Ctrl ⇧ 7', mac: '⌘⇧7'}
 		},
 		{
 			isActive: 'bulletList',
 			action: () => editor.chain().focus().toggleBulletList().run(),
-			icon: ListIcon
+			icon: ListIcon,
+			label: 'Bullet list',
+			shortcut: {win: 'Ctrl ⇧ 8', mac: '⌘⇧8'}
 		},
 		{
 			isActive: 'codeBlock',
 			action: () => editor.chain().focus().toggleCodeBlock().run(),
-			icon: CodeIcon
+			icon: CodeIcon,
+			label: 'Code block',
+			shortcut: {win: 'Ctrl Alt C', mac: '⌘⌥C'}
 		}
 	];
+
+	const currentOS = navigator.userAgent.indexOf('Mac OS X') != -1 ? 'mac' : 'win';
 </script>
 
 <div
@@ -122,13 +145,23 @@
 	<Separator orientation="vertical" class="mx-1 h-6" />
 	<div class="flex gap-0.5">
 		{#each toggles as toggleItem}
-			<Toggle
-				size="sm"
-				pressed={editor?.isActive(toggleItem.isActive)}
-				onPressedChange={toggleItem.action}
-			>
-				<svelte:component this={toggleItem.icon} class="h-4 w-4" />
-			</Toggle>
+			<Tooltip.Root group='editor-menu-toggles'>
+				<Tooltip.Trigger>
+					<Toggle
+						size="sm"
+						pressed={editor?.isActive(toggleItem.isActive)}
+						onPressedChange={toggleItem.action}
+					>
+						<svelte:component this={toggleItem.icon} class="h-4 w-4" />
+					</Toggle>
+				</Tooltip.Trigger>
+				<Tooltip.Content class="flex gap-2 text-sm items-center z-50">
+					<span>{toggleItem.label}</span
+					>{#if toggleItem.shortcut && toggleItem.shortcut[currentOS]}<Shortcut
+							>{toggleItem.shortcut[currentOS]}</Shortcut
+						>{/if}
+				</Tooltip.Content>
+			</Tooltip.Root>
 		{/each}
 	</div>
 </div>
