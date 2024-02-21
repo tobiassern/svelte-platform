@@ -3,20 +3,18 @@
 	import * as Card from '$lib/components/ui/card';
 	import { Button } from '$lib/components/ui/button';
 	import { Separator } from '$lib/components/ui/separator';
-	import { ExternalLinkIcon } from 'lucide-svelte';
 	import { superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { update_post_schema } from '$lib/schemas/form';
 	import slugify from '@sindresorhus/slugify';
 	import { toast } from 'svelte-sonner';
 	import { Loader2Icon } from 'lucide-svelte';
-	import { scale } from 'svelte/transition';
 	import autoAnimate from '@formkit/auto-animate';
 	import { onMount } from 'svelte';
 	import PublishPostForm from './(components)/publish-post-form.svelte';
 	import { TiptapEditor } from '$lib/components/tiptap-editor';
 	import { PUBLIC_HOST } from '$env/static/public';
-	import { CopyIcon } from 'lucide-svelte';
+	import { CopyIcon, ExternalLinkIcon } from 'lucide-svelte';
 
 	export let data;
 
@@ -104,9 +102,10 @@
 					size="icon"
 					variant="ghost"
 					on:click={() => {
-						navigator.clipboard.writeText(`${siteUrl}/${$form.slug}`);
+						navigator.clipboard.writeText(`${siteUrl}/${data.post.slug}`);
 					}}><CopyIcon class="size-4" /></Button
 				>
+				<Button size="icon" variant="ghost" href="{siteUrl}/{data.post.slug}"><ExternalLinkIcon class="size-4" /></Button>
 			</div>
 		</Card.Header>
 	</Card.Root>
