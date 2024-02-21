@@ -43,14 +43,11 @@
 							</a>
 						</h3>
 						<p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
-							Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non
-							aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla
-							deserunt vel. Iusto corrupti dicta.
+							{post.description}
 						</p>
 					</div>
 				</article>
 			{/each}
-			<!-- More posts... -->
 		</div>
 	</div>
 </div>

@@ -88,13 +88,15 @@
 			<div class="flex items-center justify-between gap-3">
 				<label
 					for="slug"
-					class="flex flex-1 rounded-md bg-muted px-2 py-1 text-sm text-muted-foreground transition hover:bg-muted/50"
-					>{siteUrl}/<input
+					class="flex flex-1 items-center rounded-md bg-muted px-2 py-1 text-sm text-muted-foreground transition hover:bg-muted/50"
+					><div class="hidden xl:block">{siteUrl}</div>
+					<span>/</span><input
 						on:change={onChangeSlug}
 						id="slug"
 						form="update-post-form"
-						class="bg-transparent px-0 outline-none"
+						class="flex-1 bg-transparent px-0 outline-none placeholder:italic"
 						name="slug"
+						placeholder="Edit slug..."
 						value={$form.slug}
 					/>
 				</label>
@@ -102,10 +104,10 @@
 					size="icon"
 					variant="ghost"
 					on:click={() => {
-						navigator.clipboard.writeText(`${siteUrl}/${data.post.slug}`);
+						navigator.clipboard.writeText(`${siteUrl}/${data.post.slug ?? ''}`);
 					}}><CopyIcon class="size-4" /></Button
 				>
-				<Button size="icon" variant="ghost" href="{siteUrl}/{data.post.slug}"
+				<Button size="icon" variant="ghost" href="{siteUrl}/{data.post.slug ?? ''}"
 					><ExternalLinkIcon class="size-4" /></Button
 				>
 			</div>
