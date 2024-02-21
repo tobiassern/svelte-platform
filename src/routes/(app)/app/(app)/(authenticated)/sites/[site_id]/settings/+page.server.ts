@@ -6,7 +6,7 @@ import { redirect, fail } from '@sveltejs/kit';
 import {
 	update_site_general_information_schema,
 	update_subdomain_schema,
-	update_site_cover_image_schema
+	update_cover_image_schema
 } from '$lib/schemas/form';
 import { superValidate, withFiles } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
@@ -23,7 +23,7 @@ export const load: PageServerLoad = async (event) => {
 
 	const subdomain_form = await superValidate(site, zod(update_subdomain_schema));
 
-	const cover_image_form = await superValidate(zod(update_site_cover_image_schema));
+	const cover_image_form = await superValidate(zod(update_cover_image_schema));
 
 	return { site, general_information_form, subdomain_form, cover_image_form };
 };
@@ -51,10 +51,7 @@ export const actions: Actions = {
 	'update-cover-image': async (event) => {
 		const site = await isSiteMember(event);
 
-		const cover_image_form = await superValidate(
-			event.request,
-			zod(update_site_cover_image_schema)
-		);
+		const cover_image_form = await superValidate(event.request, zod(update_cover_image_schema));
 
 		if (!cover_image_form.valid) {
 			return fail(400, withFiles({ cover_image_form }));

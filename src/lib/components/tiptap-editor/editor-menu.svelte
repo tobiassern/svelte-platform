@@ -47,29 +47,28 @@
 			action: () => editor.chain().focus().toggleStrike().run(),
 			icon: StrikethroughIcon,
 			label: 'Strikethrough',
-			shortcut: {win: 'Ctrl ⇧ S', mac: '⌘⇧S'}
-
+			shortcut: { win: 'Ctrl ⇧ S', mac: '⌘⇧S' }
 		},
 		{
 			isActive: 'orderedList',
 			action: () => editor.chain().focus().toggleOrderedList().run(),
 			icon: ListOrderedIcon,
 			label: 'Ordered list',
-			shortcut: {win: 'Ctrl ⇧ 7', mac: '⌘⇧7'}
+			shortcut: { win: 'Ctrl ⇧ 7', mac: '⌘⇧7' }
 		},
 		{
 			isActive: 'bulletList',
 			action: () => editor.chain().focus().toggleBulletList().run(),
 			icon: ListIcon,
 			label: 'Bullet list',
-			shortcut: {win: 'Ctrl ⇧ 8', mac: '⌘⇧8'}
+			shortcut: { win: 'Ctrl ⇧ 8', mac: '⌘⇧8' }
 		},
 		{
 			isActive: 'codeBlock',
 			action: () => editor.chain().focus().toggleCodeBlock().run(),
 			icon: CodeIcon,
 			label: 'Code block',
-			shortcut: {win: 'Ctrl Alt C', mac: '⌘⌥C'}
+			shortcut: { win: 'Ctrl Alt C', mac: '⌘⌥C' }
 		}
 	];
 
@@ -145,7 +144,7 @@
 	<Separator orientation="vertical" class="mx-1 h-6" />
 	<div class="flex gap-0.5">
 		{#each toggles as toggleItem}
-			<Tooltip.Root group='editor-menu-toggles'>
+			<Tooltip.Root group="editor-menu-toggles">
 				<Tooltip.Trigger>
 					<Toggle
 						size="sm"
@@ -155,7 +154,7 @@
 						<svelte:component this={toggleItem.icon} class="h-4 w-4" />
 					</Toggle>
 				</Tooltip.Trigger>
-				<Tooltip.Content class="flex gap-2 text-sm items-center z-50">
+				<Tooltip.Content class="z-50 flex items-center gap-2 text-sm">
 					<span>{toggleItem.label}</span
 					>{#if toggleItem.shortcut && toggleItem.shortcut[currentOS]}<Shortcut
 							>{toggleItem.shortcut[currentOS]}</Shortcut

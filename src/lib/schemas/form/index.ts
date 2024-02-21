@@ -33,7 +33,7 @@ export const update_site_general_information_schema = z.object({
 const MAX_FILE_SIZE = 4000000;
 const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
 
-export const update_site_cover_image_schema = z.object({
+export const update_cover_image_schema = z.object({
 	cover_image: z
 		.custom<File>((f) => f instanceof File, 'Please upload a file.')
 		.refine((file) => ACCEPTED_IMAGE_TYPES.includes(file.type), {

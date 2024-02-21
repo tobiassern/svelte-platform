@@ -2,7 +2,6 @@
 	import { page } from '$app/stores';
 	import * as Card from '$lib/components/ui/card';
 	import type { SuperValidated, Infer } from 'sveltekit-superforms';
-	import { Separator } from '$lib/components/ui/separator';
 	import { Button } from '$lib/components/ui/button';
 	import { superForm } from 'sveltekit-superforms';
 	import { Loader2Icon } from 'lucide-svelte';
@@ -42,22 +41,22 @@
 			id="cover_image"
 			name="cover_image"
 			bind:value={$frm.cover_image}
-			defaultImageSrc={$page.data.site.cover_image_url}
+			defaultImageSrc={$page.data.post.cover_image_url}
 			bind:this={imageInputEl}
 		/>
 	</form>
+
 	<Card.Header>
 		<Card.Title>Cover Image</Card.Title>
-		<Card.Description>Set your personal touch to your site with a cover image.</Card.Description>
+		<Card.Description>Make your post shine with an image.</Card.Description>
 		{#if $errors.cover_image}
 			{#each $errors.cover_image as _err}
 				<Card.Description class="text-destructive">{_err}</Card.Description>
 			{/each}
 		{/if}
 	</Card.Header>
-	{#if $frm.cover_image || $page.data.site.cover_image_url}
+	{#if $frm.cover_image || $page.data.post.cover_image_url}
 		<Card.Footer class="flex-col items-stretch">
-			<Separator class="mb-6"></Separator>
 			<div class="flex gap-6">
 				{#if $frm.cover_image}
 					<Button type="submit" form="update-cover-image-form" disabled={$submitting}
@@ -73,7 +72,7 @@
 							imageInputEl.reset();
 						}}>Cancel</Button
 					>
-				{:else if $page.data.site.cover_image_url}
+				{:else if $page.data.post.cover_image_url}
 					<form
 						method="POST"
 						action="?/remove-cover-image"

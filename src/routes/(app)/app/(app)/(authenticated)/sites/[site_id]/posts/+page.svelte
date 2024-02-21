@@ -57,7 +57,9 @@
 					<Badge class="absolute right-3 top-3">Unpublished</Badge>
 				{/if}
 				<img
-					src="https://upload.wikimedia.org/wikipedia/commons/5/5a/No_image_available_500_x_500.svg"
+					src={post.cover_image_url
+						? post.cover_image_url
+						: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/No_image_available_500_x_500.svg'}
 					alt="Post main"
 					class="h-full w-full object-cover object-center"
 				/>

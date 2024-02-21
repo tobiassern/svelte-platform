@@ -119,6 +119,7 @@ export const posts = pgTable(
 		published: boolean('published').default(false),
 		title: text('title'),
 		description: text('description'),
+		cover_image_url: text('cover_image_url'),
 		content_json: jsonb('content_json'),
 		content_html: text('content_html'),
 		site_id: uuid('site_id').references(() => sites_table.id, { onDelete: 'cascade' })

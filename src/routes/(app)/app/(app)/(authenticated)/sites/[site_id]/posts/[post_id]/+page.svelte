@@ -10,11 +10,11 @@
 	import { toast } from 'svelte-sonner';
 	import { Loader2Icon } from 'lucide-svelte';
 	import autoAnimate from '@formkit/auto-animate';
-	import { onMount } from 'svelte';
 	import PublishPostForm from './(components)/publish-post-form.svelte';
 	import { TiptapEditor } from '$lib/components/tiptap-editor';
 	import { PUBLIC_HOST } from '$env/static/public';
 	import { CopyIcon, ExternalLinkIcon } from 'lucide-svelte';
+	import CoverImageForm from './(components)/cover-image-form.svelte';
 
 	export let data;
 
@@ -116,15 +116,10 @@
 			<TiptapEditor bind:this={tiptapEditorEl} content={$form.content_json} />
 		</Card.Root>
 	</div>
-	<div style="grid-area: sidebar;">
+	<div style="grid-area: sidebar;" class="space-y-6">
+		<CoverImageForm sForm={data.cover_image_form} />
 		<Card.Root>
 			<Card.Content class="pt-6">
-				<img
-					class="aspect-video rounded-md object-cover object-center"
-					src="https://images.unsplash.com/photo-1708342858256-4a27f1d0aaee?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-					alt="Cover"
-				/>
-				<Separator class="my-6"></Separator>
 				<p class="text-sm text-muted-foreground">
 					Created: {new Date(data.post.created_at).toLocaleString()}
 				</p>
@@ -141,6 +136,11 @@
 					<PublishPostForm sForm={data.publish_form} />
 				</div>
 			</Card.Content>
+			<Card.Footer class="justify-end bg-muted pt-6">
+				<form action="?/delete-post" method="POST">
+					<Button variant="destructive" type="submit">Delete</Button>
+				</form>
+			</Card.Footer>
 		</Card.Root>
 	</div>
 </div>
