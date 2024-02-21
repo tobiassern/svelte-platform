@@ -2,6 +2,7 @@
 	import { page } from '$app/stores';
 	import { PUBLIC_HOST } from '$env/static/public';
 	import { GithubIcon } from 'lucide-svelte';
+	import { vercel_deploy_button_url } from '$lib/utils';
 </script>
 
 <svelte:head>
@@ -51,7 +52,7 @@
 				</p>
 				<div class="mt-10 flex items-center justify-center gap-x-6">
 					<a
-						href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world"
+						href="{vercel_deploy_button_url}"
 						><img src="https://vercel.com/button" alt="Deploy with Vercel" /></a
 					>
 					<a

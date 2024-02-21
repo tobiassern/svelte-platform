@@ -4,6 +4,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import { cubicInOut } from 'svelte/easing';
 	import { crossfade } from 'svelte/transition';
+	import { dev } from '$app/environment';
 	import {
 		SailboatIcon,
 		ExternalLinkIcon,
@@ -12,6 +13,7 @@
 		TriangleIcon
 	} from 'lucide-svelte';
 	import { PUBLIC_HOST } from '$env/static/public';
+	import { vercel_deploy_button_url } from '$lib/utils';
 
 	let className: string | undefined | null = undefined;
 	export let items: { path: string; title: string; icon: typeof SailboatIcon }[];
@@ -30,13 +32,13 @@
 		},
 		{
 			label: 'View demo site',
-			href: '#',
+			href: dev ? 'http://demo.platform.localhost:3001' : 'https://demo.platform.sernhe.dev',
 			icon: LayoutIcon
 		},
 		{
 			label: 'Deploy your own',
 			icon: TriangleIcon,
-			href: '#'
+			href: vercel_deploy_button_url
 		}
 	];
 </script>
@@ -90,7 +92,7 @@
 			{#each promotional_links as promotional_link}
 				<li>
 					<Button
-						href="{$page.url.protocol}//{$page.data.site.subdomain}.{PUBLIC_HOST}"
+						href={promotional_link.href}
 						variant="ghost"
 						class={cn('relative w-full justify-start hover:bg-transparent hover:underline')}
 						data-sveltekit-noscroll
