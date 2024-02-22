@@ -6,12 +6,13 @@ import { redirect, fail } from '@sveltejs/kit';
 import {
 	update_site_general_information_schema,
 	update_subdomain_schema,
-	update_cover_image_schema
+	update_cover_image_schema,
+	update_custom_domain_schema
 } from '$lib/schemas/form';
 import { superValidate, withFiles } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { put, del } from '@vercel/blob';
-import { BLOB_READ_WRITE_TOKEN } from '$env/static/private';
+import { BLOB_READ_WRITE_TOKEN, PROJECT_ID_VERCEL, AUTH_BEARER_TOKEN } from '$env/static/private';
 
 export const load: PageServerLoad = async (event) => {
 	const site = await isSiteMember(event);
@@ -21,11 +22,12 @@ export const load: PageServerLoad = async (event) => {
 		zod(update_site_general_information_schema)
 	);
 
+	const custom_domain_form = await superValidate(site, zod(update_custom_domain_schema));
 	const subdomain_form = await superValidate(site, zod(update_subdomain_schema));
 
 	const cover_image_form = await superValidate(zod(update_cover_image_schema));
 
-	return { site, general_information_form, subdomain_form, cover_image_form };
+	return { site, general_information_form, subdomain_form, cover_image_form, custom_domain_form };
 };
 
 export const actions: Actions = {
@@ -79,6 +81,7 @@ export const actions: Actions = {
 
 		return withFiles({ cover_image_form });
 	},
+
 	'remove-cover-image': async (event) => {
 		const site = await isSiteMember(event);
 		if (site.cover_image_url) {
@@ -105,6 +108,23 @@ export const actions: Actions = {
 			.where(eq(sites_table.id, site.id));
 
 		return { subdomain_form };
+	},
+	'update-custom-domain': async (event) => {
+		const site = await isSiteMember(event);
+
+		const response = await event.fetch(`https://api.vercel.com/v10/projects/${PROJECT_ID_VERCEL}/domains`, {
+			method: 'POST',
+			headers: {
+				"Authorization": `Bearer ${AUTH_BEARER_TOKEN}`
+			},
+			body: JSON.stringify({
+				name: "test.sernhe.dev"
+			})
+		});
+
+		const result = await response.json();
+		console.log(result);
+		return { success: true }
 	},
 	'delete-site': async (event) => {
 		const site = await isSiteMember(event);

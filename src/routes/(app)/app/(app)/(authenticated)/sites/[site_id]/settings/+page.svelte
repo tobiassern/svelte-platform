@@ -5,6 +5,7 @@
 	import SubdomainForm from './(components)/subdomain-form.svelte';
 	import DeleteSiteForm from './(components)/delete-site-form.svelte';
 	import CoverImageForm from './(components)/cover-image-form.svelte';
+	import CustomDomainForm from './(components)/custom-domain-form.svelte';
 
 	export let data;
 </script>
@@ -17,6 +18,7 @@
 	<GeneralInformationForm sForm={data.general_information_form} />
 	<CoverImageForm sForm={data.cover_image_form} />
 	<SubdomainForm sForm={data.subdomain_form}></SubdomainForm>
+	<CustomDomainForm sForm={data.custom_domain_form} />
 	<Separator class="my-6" />
 	<DeleteSiteForm />
 </div>

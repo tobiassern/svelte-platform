@@ -48,6 +48,10 @@ export const update_subdomain_schema = z.object({
 	subdomain: z.string().min(1)
 });
 
+export const update_custom_domain_schema = z.object({
+	custom_domain: z.string().url()
+})
+
 export const update_post_schema = z
 	.object({
 		title: z.string(),

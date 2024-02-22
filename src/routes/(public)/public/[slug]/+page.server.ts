@@ -2,7 +2,7 @@ import type { PageServerLoad } from './$types';
 import { PUBLIC_HOST } from '$env/static/public';
 import { error } from '@sveltejs/kit';
 import { sites_table, posts } from '$lib/schemas/db/schema';
-import { eq, and } from 'drizzle-orm';
+import { eq, and, or } from 'drizzle-orm';
 import { BYPASS_TOKEN } from '$env/static/private';
 
 // export const config = {
@@ -25,9 +25,10 @@ import { BYPASS_TOKEN } from '$env/static/private';
 
 export const load: PageServerLoad = async (event) => {
 	const subdomain = event.url.host.replace(`.${PUBLIC_HOST}`, '');
+	const custom_domain = event.url.host;
 
 	const result = await event.locals.db.query.sites_table.findFirst({
-		where: eq(sites_table.subdomain, subdomain),
+		where: or(eq(sites_table.subdomain, subdomain), eq(sites_table.custom_domain, custom_domain)),
 		columns: {
 			name: true,
 			description: true,
