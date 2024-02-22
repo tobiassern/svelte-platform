@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 	import { Input } from '$lib/components/ui/input';
 	import { Button } from '$lib/components/ui/button';
-	import { DicesIcon } from 'lucide-svelte';
+	import DicesIcon from 'lucide-svelte/icons/dices';
 	import { enhance } from '$app/forms';
 	import { toast } from 'svelte-sonner';
 

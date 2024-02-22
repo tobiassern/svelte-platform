@@ -2,7 +2,8 @@
 	import { Container } from '$lib/components/container';
 	import * as Card from '$lib/components/ui/card';
 	import { Button } from '$lib/components/ui/button';
-	import { ExternalLinkIcon, PlusCircleIcon } from 'lucide-svelte';
+	import ExternalLinkIcon from 'lucide-svelte/icons/external-link';
+	import PlusCircleIcon from 'lucide-svelte/icons/plus-circle';
 	import { cn } from '$lib/utils';
 	export let data;
 </script>

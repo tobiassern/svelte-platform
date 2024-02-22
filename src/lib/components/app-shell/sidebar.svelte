@@ -3,7 +3,10 @@
 	import SiteSwitcher from './site-switcher.svelte';
 	import UserNav from './user-nav.svelte';
 	import SidebarNav from './sidebar-nav.svelte';
-	import { LayoutDashboardIcon, NewspaperIcon, Users2Icon, CogIcon } from 'lucide-svelte';
+	import LayoutDashboardIcon from 'lucide-svelte/icons/layout-dashboard';
+	import NewspaperIcon from 'lucide-svelte/icons/newspaper';
+	import UsersIcon from 'lucide-svelte/icons/users';
+	import CogIcon from 'lucide-svelte/icons/cog';
 	import { cn } from '$lib/utils';
 	let className: HTMLDivElement['className'] | undefined = undefined;
 	export { className as class };
@@ -17,7 +20,7 @@
 			items={[
 				{ path: '', title: 'Dashboard', icon: LayoutDashboardIcon },
 				{ path: '/posts', title: 'Posts', icon: NewspaperIcon },
-				{ path: '/team', title: 'Team', icon: Users2Icon },
+				{ path: '/team', title: 'Team', icon: UsersIcon },
 				{ path: '/settings', title: 'Settings', icon: CogIcon }
 			]}
 		></SidebarNav>

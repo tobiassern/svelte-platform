@@ -8,12 +8,13 @@
 	import { update_post_schema } from '$lib/schemas/form';
 	import slugify from '@sindresorhus/slugify';
 	import { toast } from 'svelte-sonner';
-	import { Loader2Icon } from 'lucide-svelte';
+	import Loader2Icon from 'lucide-svelte/icons/loader-2';
 	import autoAnimate from '@formkit/auto-animate';
 	import PublishPostForm from './(components)/publish-post-form.svelte';
 	import { TiptapEditor } from '$lib/components/tiptap-editor';
 	import { PUBLIC_HOST } from '$env/static/public';
-	import { CopyIcon, ExternalLinkIcon } from 'lucide-svelte';
+	import CopyIcon from 'lucide-svelte/icons/copy';
+	import ExternalLinkIcon from 'lucide-svelte/icons/external-link';
 	import CoverImageForm from './(components)/cover-image-form.svelte';
 
 	export let data;

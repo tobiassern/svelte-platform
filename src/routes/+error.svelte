@@ -4,7 +4,7 @@
 	import { Container } from '$lib/components/container';
 	import { Title } from '$lib/components/title';
 	import { Button } from '$lib/components/ui/button';
-	import { MoveLeftIcon } from 'lucide-svelte';
+	import MoveLeftIcon from 'lucide-svelte/icons/move-left';
 </script>
 
 <svelte:head>

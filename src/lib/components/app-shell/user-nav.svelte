@@ -3,9 +3,13 @@
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import * as Avatar from '$lib/components/ui/avatar';
 	import { Button } from '$lib/components/ui/button';
-	import { ChevronsUpDownIcon } from 'lucide-svelte';
+	import ChevronsUpDownIcon from 'lucide-svelte/icons/chevrons-up-down';
+	import LogOutIcon from 'lucide-svelte/icons/log-out';
+	import UserIcon from 'lucide-svelte/icons/user';
+	import SunIcon from 'lucide-svelte/icons/sun';
+	import MoonStarIcon from 'lucide-svelte/icons/moon-star';
+	import MonitorIcon from 'lucide-svelte/icons/monitor';
 	import { getInitials } from '$lib/utils';
-	import { LogOutIcon, User2Icon, SunIcon, MoonStarIcon, MonitorIcon } from 'lucide-svelte';
 	import { setMode, resetMode, mode } from 'mode-watcher';
 </script>
 
@@ -33,7 +37,7 @@
 			<DropdownMenu.Separator />
 			<DropdownMenu.Group>
 				<DropdownMenu.Item href="/profile"
-					><User2Icon class="mr-2 size-4" />Profile</DropdownMenu.Item
+					><UserIcon class="mr-2 size-4" />Profile</DropdownMenu.Item
 				>
 			</DropdownMenu.Group>
 			<DropdownMenu.Separator />

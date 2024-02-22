@@ -8,7 +8,7 @@
 	import StrikethroughIcon from 'lucide-svelte/icons/strikethrough';
 	import ListOrderedIcon from 'lucide-svelte/icons/list-ordered';
 	import ListIcon from 'lucide-svelte/icons/list';
-	import { CodeIcon } from 'lucide-svelte';
+	import CodeIcon from 'lucide-svelte/icons/code';
 	import type { Editor } from '@tiptap/core';
 	import { cn } from '$lib/utils';
 	import { Shortcut } from '$lib/components/ui/command';

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card';
 	import { Button } from '$lib/components/ui/button';
-	import { Loader2Icon } from 'lucide-svelte';
+	import Loader2Icon from 'lucide-svelte/icons/loader-2';
 	import { superForm } from 'sveltekit-superforms';
 	import { create_site_schema } from '$lib/schemas/form';
 	import { zodClient } from 'sveltekit-superforms/adapters';

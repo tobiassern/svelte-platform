@@ -4,7 +4,7 @@
 	import type { SuperValidated, Infer } from 'sveltekit-superforms';
 	import { Button } from '$lib/components/ui/button';
 	import { superForm } from 'sveltekit-superforms';
-	import { Loader2Icon } from 'lucide-svelte';
+	import Loader2Icon from 'lucide-svelte/icons/loader-2';
 	import { enhance as svkEnhance } from '$app/forms';
 	import { toast } from 'svelte-sonner';
 	import { update_cover_image_schema } from '$lib/schemas/form';

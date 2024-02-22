@@ -2,13 +2,13 @@
 	import * as Avatar from '$lib/components/ui/avatar';
 	import { Button } from '$lib/components/ui/button';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
-	import { MoreVerticalIcon } from 'lucide-svelte';
 	import { users_table } from '$lib/schemas/db/schema';
 	import { enhance } from '$app/forms';
 	import { toast } from 'svelte-sonner';
 	import type { SubmitFunction } from '../$types';
 	import { onDestroy } from 'svelte';
-	import { Loader2Icon } from 'lucide-svelte';
+	import Loader2Icon from 'lucide-svelte/icons/loader-2';
+	import MoreVerticalIcon from 'lucide-svelte/icons/more-vertical';
 	type Member = typeof users_table.$inferSelect;
 
 	export let members: Member[];

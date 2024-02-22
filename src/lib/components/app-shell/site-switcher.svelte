@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { ChevronsUpDownIcon, CheckIcon, PlusCircleIcon } from 'lucide-svelte';
+	import ChevronsUpDownIcon from 'lucide-svelte/icons/chevrons-up-down';
+	import CheckIcon from 'lucide-svelte/icons/check';
+	import PlusCircleIcon from 'lucide-svelte/icons/plus-circle';
 	import { cn } from '$lib/utils';
 	import * as Avatar from '$lib/components/ui/avatar';
 	import { Button } from '$lib/components/ui/button';

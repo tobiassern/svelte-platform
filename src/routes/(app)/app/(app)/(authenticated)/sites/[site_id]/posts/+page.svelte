@@ -3,7 +3,8 @@
 	import { Separator } from '$lib/components/ui/separator';
 	import * as Card from '$lib/components/ui/card';
 	import { Button } from '$lib/components/ui/button';
-	import { PlusIcon, Loader2Icon } from 'lucide-svelte';
+	import PlusIcon from 'lucide-svelte/icons/plus';
+	import Loader2Icon from 'lucide-svelte/icons/loader-2';
 	import { cn } from '$lib/utils';
 	import { enhance } from '$app/forms';
 	import type { SubmitFunction } from './$types.js';

@@ -3,7 +3,8 @@
 	import { Title } from '$lib/components/title';
 	import * as Card from '$lib/components/ui/card';
 	import { Button } from '$lib/components/ui/button';
-	import { GithubIcon, Loader2Icon } from 'lucide-svelte';
+	import GithubIcon from 'lucide-svelte/icons/github';
+	import Loader2Icon from 'lucide-svelte/icons/loader-2';
 	import { enhance } from '$app/forms';
 	import type { SubmitFunction } from './$types';
 	import { onDestroy } from 'svelte';

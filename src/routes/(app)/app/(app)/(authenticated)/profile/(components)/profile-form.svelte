@@ -5,7 +5,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import Input from '$lib/components/form-fields/input.svelte';
 	import { superForm } from 'sveltekit-superforms';
-	import { Loader2Icon } from 'lucide-svelte';
+	import Loader2Icon from 'lucide-svelte/icons/loader-2';
 	import { toast } from 'svelte-sonner';
 
 	import { profile_schema } from '$lib/schemas/form';

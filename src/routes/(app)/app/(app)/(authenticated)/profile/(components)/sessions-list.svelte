@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { sessions_table } from '$lib/schemas/db/schema';
 	import * as Card from '$lib/components/ui/card';
-	import { Trash2Icon } from 'lucide-svelte';
+	import Trash2Icon from 'lucide-svelte/icons/trash-2';
 	import { Button } from '$lib/components/ui/button';
 	import { Badge } from '$lib/components/ui/badge';
 	import { enhance } from '$app/forms';

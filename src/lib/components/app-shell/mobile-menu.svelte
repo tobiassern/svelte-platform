@@ -3,7 +3,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Container } from '$lib/components/container';
 	import { afterNavigate } from '$app/navigation';
-	import { PanelRightOpenIcon } from 'lucide-svelte';
+	import PanelRightOpenIcon from 'lucide-svelte/icons/panel-right-open';
 	let sheetOpen = false;
 	afterNavigate(() => {
 		sheetOpen = false;

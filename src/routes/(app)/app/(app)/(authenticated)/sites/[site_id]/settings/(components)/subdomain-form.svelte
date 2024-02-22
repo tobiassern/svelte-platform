@@ -6,7 +6,7 @@
 	import Input from '$lib/components/form-fields/input.svelte';
 	import { superForm } from 'sveltekit-superforms';
 	import { PUBLIC_HOST } from '$env/static/public';
-	import { Loader2Icon } from 'lucide-svelte';
+	import Loader2Icon from 'lucide-svelte/icons/loader-2';
 	import { cn } from '$lib/utils';
 	import { scale } from 'svelte/transition';
 

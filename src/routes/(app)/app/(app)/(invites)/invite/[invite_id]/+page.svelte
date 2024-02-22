@@ -4,7 +4,7 @@
 
 	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
-	import { Loader2Icon } from 'lucide-svelte';
+	import Loader2Icon from 'lucide-svelte/icons/loader-2';
 	import { onDestroy } from 'svelte';
 	import type { SubmitFunction } from './$types.js';
 	import { toast } from 'svelte-sonner';

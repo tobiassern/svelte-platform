@@ -6,7 +6,7 @@
 	import Input from '$lib/components/form-fields/input.svelte';
 	import TextArea from '$lib/components/form-fields/text-area.svelte';
 	import { superForm } from 'sveltekit-superforms';
-	import { Loader2Icon } from 'lucide-svelte';
+	import Loader2Icon from 'lucide-svelte/icons/loader-2';
 
 	import { update_site_general_information_schema } from '$lib/schemas/form';
 

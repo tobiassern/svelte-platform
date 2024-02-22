@@ -5,18 +5,15 @@
 	import { cubicInOut } from 'svelte/easing';
 	import { crossfade } from 'svelte/transition';
 	import { dev } from '$app/environment';
-	import {
-		SailboatIcon,
-		ExternalLinkIcon,
-		GithubIcon,
-		LayoutIcon,
-		TriangleIcon
-	} from 'lucide-svelte';
+	import GithubIcon from 'lucide-svelte/icons/github';
+	import LayoutTemplateIcon from 'lucide-svelte/icons/layout-template';
+	import TriangleIcon from 'lucide-svelte/icons/triangle';
+	import ExternalLinkIcon from 'lucide-svelte/icons/external-link';
 	import { PUBLIC_HOST } from '$env/static/public';
 	import { vercel_deploy_button_url, github_repo_url } from '$lib/utils';
 
 	let className: string | undefined | null = undefined;
-	export let items: { path: string; title: string; icon: typeof SailboatIcon }[];
+	export let items: { path: string; title: string; icon: typeof ExternalLinkIcon }[];
 	export { className as class };
 
 	const [send, receive] = crossfade({
@@ -33,7 +30,7 @@
 		{
 			label: 'View demo site',
 			href: dev ? 'http://demo.platform.localhost:3001' : 'https://demo.platform.sernhe.dev',
-			icon: LayoutIcon
+			icon: LayoutTemplateIcon
 		},
 		{
 			label: 'Deploy your own',

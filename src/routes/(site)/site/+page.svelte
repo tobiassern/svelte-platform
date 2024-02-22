@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { PUBLIC_HOST } from '$env/static/public';
-	import { GithubIcon } from 'lucide-svelte';
+	import GithubIcon from 'lucide-svelte/icons/github';
 	import { vercel_deploy_button_url, github_repo_url } from '$lib/utils';
 </script>
 
